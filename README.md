@@ -4,7 +4,7 @@ Sistema de gerenciamento de conteúdo para o site da Estância Menin.
 
 ## 🚀 Tecnologias
 
-- **Next.js 14** - Framework React
+- **Next.js 16** - Framework React
 - **TypeScript** - Tipagem estática
 - **Tailwind CSS** - Estilização
 - **Supabase** - Banco de dados e autenticação
@@ -82,7 +82,7 @@ src/
 │   └── supabase/        # Clientes Supabase
 ├── types/
 │   └── database.ts      # Tipos TypeScript
-└── middleware.ts        # Proteção de rotas
+└── proxy.ts             # Proteção de rotas (antigo middleware)
 ```
 
 ## 🚀 Deploy no Vercel
