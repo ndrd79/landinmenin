@@ -12,6 +12,14 @@ import CalendarioSite from '@/components/site/Calendario'
 import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
 
+interface GaleriaItem {
+  id: string
+  url: string
+  alt: string
+  secao: string
+  ordem: number
+}
+
 export default async function Home() {
   const supabase = await createClient()
 
@@ -23,8 +31,8 @@ export default async function Home() {
   const { data: agendamentos } = await supabase.from('calendario').select('*')
   const { data: avisos } = await supabase.from('avisos').select('*').eq('ativo', true)
 
-  const heroImage = fotos?.find(f => f.secao === 'hero')?.url
-  const galeriaFotos = fotos?.filter(f => f.secao === 'galeria')
+  const heroImage = (fotos as GaleriaItem[] | null)?.find((f: GaleriaItem) => f.secao === 'hero')?.url
+  const galeriaFotos = (fotos as GaleriaItem[] | null)?.filter((f: GaleriaItem) => f.secao === 'galeria')
 
   return (
     <main className="min-h-screen">
