@@ -4,13 +4,14 @@ export const dynamic = 'force-dynamic'
 
 import { useEffect, useState } from 'react'
 import { createClient } from '@/lib/supabase/client'
+import type { User } from '@supabase/supabase-js'
 
 export default function AdminDashboard() {
     const [userEmail, setUserEmail] = useState<string | null>(null)
 
     useEffect(() => {
         const supabase = createClient()
-        supabase.auth.getUser().then(({ data: { user } }) => {
+        supabase.auth.getUser().then(({ data: { user } }: { data: { user: User | null } }) => {
             setUserEmail(user?.email || null)
         })
     }, [])
