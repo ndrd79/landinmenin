@@ -45,12 +45,14 @@
   --foreground: #2D3B2F;
 }
 
+/* Dark mode disabled - keeping light theme for consistency
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #1A2E1D;
     --foreground: #F5F1E8;
   }
 }
+*/
 
 html {
   scroll-behavior: smooth;
