@@ -4,6 +4,8 @@ import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
 
+export const dynamic = 'force-dynamic'
+
 const menuItems = [
     { href: '/admin', label: 'Dashboard', icon: 'dashboard' },
     { href: '/admin/calendario', label: 'Calendário', icon: 'calendar_month' },
@@ -60,8 +62,8 @@ export default function AdminLayout({
                                     <Link
                                         href={item.href}
                                         className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                                ? 'bg-green-50 text-green-700 font-medium'
-                                                : 'text-gray-600 hover:bg-gray-50'
+                                            ? 'bg-green-50 text-green-700 font-medium'
+                                            : 'text-gray-600 hover:bg-gray-50'
                                             }`}
                                     >
                                         <span className="material-symbols-outlined text-[20px]">{item.icon}</span>

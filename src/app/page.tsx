@@ -1,5 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import Header from '@/components/site/Header'
+
+export const dynamic = 'force-dynamic'
 import Hero from '@/components/site/Hero'
 import Sobre from '@/components/site/Sobre'
 import Estrutura from '@/components/site/Estrutura'

@@ -4,6 +4,8 @@ import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
 import { createClient } from '@/lib/supabase/server'
 
+export const dynamic = 'force-dynamic'
+
 export default async function FAQPage() {
     const supabase = await createClient()
     const { data: config } = await supabase.from('configuracoes').select('*').single()
