@@ -34,18 +34,18 @@ export default function Header({ whatsapp }: HeaderProps) {
     const whatsappLink = `https://wa.me/55${whatsapp?.replace(/\D/g, '') || '18997473445'}?text=Olá! Gostaria de mais informações sobre a Estância Menin.`
 
     const menuItems = [
-        { href: '#inicio', label: 'Início' },
-        { href: '#sobre', label: 'Sobre' },
-        { href: '#estrutura', label: 'Estrutura' },
-        { href: '#precos', label: 'Preços' },
-        { href: '#agenda', label: 'Agenda' },
+        { href: '/#inicio', label: 'Início' },
+        { href: '/#sobre', label: 'Sobre' },
+        { href: '/#estrutura', label: 'Estrutura' },
+        { href: '/#precos', label: 'Preços' },
+        { href: '/#agenda', label: 'Agenda' },
     ]
 
     return (
         <>
             <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
-                    ? 'bg-white shadow-lg shadow-primary/5'
-                    : 'bg-white/95'
+                ? 'bg-white shadow-lg shadow-primary/5'
+                : 'bg-white/95'
                 }`}>
                 <div className="mx-auto flex max-w-[1280px] items-center justify-between px-4 py-3">
                     {/* Logo */}
