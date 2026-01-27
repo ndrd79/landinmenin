@@ -4,7 +4,7 @@ interface ItemEstrutura {
     id: string
     nome: string
     icone: string
-    descricao: string
+    descricao?: string
 }
 
 interface EstruturaProps {
@@ -100,7 +100,7 @@ export default function Estrutura({ itens }: EstruturaProps) {
                                 {item.nome}
                             </h3>
                             <p className="text-center text-xs text-text-muted leading-relaxed">
-                                {item.descricao}
+                                {item.descricao || item.nome}
                             </p>
 
                             {/* Hover Indicator */}
