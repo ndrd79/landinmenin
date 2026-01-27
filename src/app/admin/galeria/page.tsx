@@ -47,43 +47,70 @@ export default function GaleriaAdmin() {
         }
 
         setUploading(true)
+        let successCount = 0
+        let failCount = 0
 
         for (const file of Array.from(files)) {
-            if (file.size > 5 * 1024 * 1024) {
-                alert(`Arquivo ${file.name} é maior que 5MB`)
-                continue
+            try {
+                if (file.size > 5 * 1024 * 1024) {
+                    alert(`Arquivo ${file.name} é maior que 5MB e foi ignorado.`)
+                    failCount++
+                    continue
+                }
+
+                const fileExt = file.name.split('.').pop()
+                const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
+                const filePath = `${secaoAtiva}/${fileName}`
+
+                // Upload para Supabase Storage
+                const { error: uploadError } = await supabase.storage
+                    .from('galeria')
+                    .upload(filePath, file)
+
+                if (uploadError) {
+                    console.error('Erro no upload para o storage:', uploadError)
+                    alert(`Erro ao subir ${file.name}: ${uploadError.message}. Verifique se a pasta 'galeria' foi criada no Supabase Storage.`)
+                    failCount++
+                    continue
+                }
+
+                // Pegar URL pública
+                const { data: { publicUrl } } = supabase.storage
+                    .from('galeria')
+                    .getPublicUrl(filePath)
+
+                // Salvar no banco
+                const { error: dbError } = await supabase.from('galeria').insert({
+                    url: publicUrl,
+                    alt: file.name.replace(/\.[^/.]+$/, ''),
+                    secao: secaoAtiva,
+                    ordem: fotosSecao.length + successCount,
+                    ativo: true,
+                })
+
+                if (dbError) {
+                    console.error('Erro ao salvar no banco:', dbError)
+                    alert(`Arquivo subiu mas não salvou no banco: ${dbError.message}`)
+                    failCount++
+                } else {
+                    successCount++
+                }
+            } catch (err) {
+                console.error('Erro inesperado:', err)
+                failCount++
             }
-
-            const fileExt = file.name.split('.').pop()
-            const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
-            const filePath = `${secaoAtiva}/${fileName}`
-
-            // Upload para Supabase Storage
-            const { error: uploadError } = await supabase.storage
-                .from('galeria')
-                .upload(filePath, file)
-
-            if (uploadError) {
-                console.error('Erro no upload:', uploadError)
-                continue
-            }
-
-            // Pegar URL pública
-            const { data: { publicUrl } } = supabase.storage
-                .from('galeria')
-                .getPublicUrl(filePath)
-
-            // Salvar no banco
-            await supabase.from('galeria').insert({
-                url: publicUrl,
-                alt: file.name.replace(/\.[^/.]+$/, ''),
-                secao: secaoAtiva,
-                ordem: fotosSecao.length,
-                ativo: true,
-            })
         }
 
-        await loadFotos()
+        if (successCount > 0) {
+            await loadFotos()
+        }
+
+        if (failCount === 0) {
+            alert('Todas as fotos foram enviadas com sucesso!')
+        } else if (successCount > 0) {
+            alert(`${successCount} fotos enviadas, mas ${failCount} falharam.`)
+        }
+
         setUploading(false)
         e.target.value = ''
     }
@@ -143,8 +170,8 @@ export default function GaleriaAdmin() {
                         key={secao.value}
                         onClick={() => setSecaoAtiva(secao.value as typeof secaoAtiva)}
                         className={`px-4 py-2 rounded-lg font-medium transition-colors ${secaoAtiva === secao.value
-                                ? 'bg-green-600 text-white'
-                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            ? 'bg-green-600 text-white'
+                            : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }`}
                     >
                         {secao.label}
