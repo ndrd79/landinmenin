@@ -1,16 +1,37 @@
 import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
+// Mock client that returns empty data instead of throwing errors
+const createMockClient = () => {
+    return {
+        from: () => ({
+            select: () => ({
+                single: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+                order: () => ({
+                    ascending: () => Promise.resolve({ data: [], error: null })
+                }),
+                eq: () => Promise.resolve({ data: [], error: null }),
+                then: (resolve: (value: { data: unknown[], error: null }) => void) => resolve({ data: [], error: null })
+            }),
+            insert: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+            update: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+            delete: () => Promise.resolve({ data: null, error: { message: 'Supabase not configured' } }),
+        }),
+        auth: {
+            getUser: () => Promise.resolve({ data: { user: null }, error: null }),
+            signInWithPassword: () => Promise.resolve({ data: { user: null, session: null }, error: { message: 'Supabase not configured' } }),
+            signOut: () => Promise.resolve({ error: null }),
+        }
+    }
+}
+
 export async function createClient() {
     const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseKey) {
-        console.error('Missing Supabase environment variables:', {
-            NEXT_PUBLIC_SUPABASE_URL: supabaseUrl ? 'SET' : 'MISSING',
-            NEXT_PUBLIC_SUPABASE_ANON_KEY: supabaseKey ? 'SET' : 'MISSING'
-        })
-        throw new Error('Supabase environment variables are not configured. Please check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your Vercel environment settings.')
+        console.warn('Supabase environment variables not configured, using mock client')
+        return createMockClient() as ReturnType<typeof createServerClient>
     }
 
     const cookieStore = await cookies()

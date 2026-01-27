@@ -20,16 +20,49 @@ interface GaleriaItem {
   ordem: number
 }
 
-export default async function Home() {
-  const supabase = await createClient()
+// Default values when Supabase is not available
+const defaultConfig = {
+  whatsapp: '18997473445',
+  horario_checkout: '14:00'
+}
 
-  // Fetch data
-  const { data: config } = await supabase.from('configuracoes').select('*').single()
-  const { data: pacotes } = await supabase.from('pacotes').select('*').order('ordem', { ascending: true })
-  const { data: itensEstrutura } = await supabase.from('itens_estrutura').select('*').order('ordem', { ascending: true })
-  const { data: fotos } = await supabase.from('galeria').select('*').order('ordem', { ascending: true })
-  const { data: agendamentos } = await supabase.from('calendario').select('*')
-  const { data: avisos } = await supabase.from('avisos').select('*').eq('ativo', true)
+interface Agendamento {
+  data: string
+  status: 'disponivel' | 'reservado' | 'promocao' | 'indisponivel'
+  preco_especial?: number
+}
+
+export default async function Home() {
+  let config = defaultConfig
+  let pacotes = null
+  let itensEstrutura = null
+  let fotos = null
+  let agendamentos: Agendamento[] = []
+  let avisos = null
+
+  try {
+    const supabase = await createClient()
+
+    // Fetch data with error handling
+    const [configRes, pacotesRes, estruturaRes, fotosRes, agendamentosRes, avisosRes] = await Promise.all([
+      supabase.from('configuracoes').select('*').single(),
+      supabase.from('pacotes').select('*').order('ordem', { ascending: true }),
+      supabase.from('itens_estrutura').select('*').order('ordem', { ascending: true }),
+      supabase.from('galeria').select('*').order('ordem', { ascending: true }),
+      supabase.from('calendario').select('*'),
+      supabase.from('avisos').select('*').eq('ativo', true)
+    ])
+
+    if (configRes.data) config = { ...defaultConfig, ...configRes.data }
+    pacotes = pacotesRes.data
+    itensEstrutura = estruturaRes.data
+    fotos = fotosRes.data
+    agendamentos = agendamentosRes.data || []
+    avisos = avisosRes.data
+  } catch (error) {
+    console.error('Error fetching data from Supabase:', error)
+    // Continue with default values
+  }
 
   const heroImage = (fotos as GaleriaItem[] | null)?.find((f: GaleriaItem) => f.secao === 'hero')?.url
   const galeriaFotos = (fotos as GaleriaItem[] | null)?.filter((f: GaleriaItem) => f.secao === 'galeria')
@@ -38,7 +71,7 @@ export default async function Home() {
     <main className="min-h-screen">
       {/* Avisos Banner */}
       {avisos && avisos.length > 0 && (
-        <div className="bg-green-600 text-white py-3 px-6 text-center text-sm font-bold animate-pulse">
+        <div className="bg-gradient-to-r from-primary to-primary-light text-white py-3 px-6 text-center text-sm font-bold">
           {avisos[0].titulo}: {avisos[0].mensagem}
         </div>
       )}
