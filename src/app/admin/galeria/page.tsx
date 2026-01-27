@@ -1,0 +1,243 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { createClient } from '@/lib/supabase/client'
+import type { Galeria } from '@/types/database'
+
+const secoes = [
+    { value: 'hero', label: 'Hero (Banner Principal)' },
+    { value: 'galeria', label: 'Galeria' },
+    { value: 'estrutura', label: 'Estrutura' },
+]
+
+export default function GaleriaAdmin() {
+    const [fotos, setFotos] = useState<Galeria[]>([])
+    const [secaoAtiva, setSecaoAtiva] = useState<'hero' | 'galeria' | 'estrutura'>('galeria')
+    const [uploading, setUploading] = useState(false)
+    const [editingFoto, setEditingFoto] = useState<Galeria | null>(null)
+
+    const supabase = createClient()
+
+    useEffect(() => {
+        loadFotos()
+    }, [])
+
+    const loadFotos = async () => {
+        const { data } = await supabase
+            .from('galeria')
+            .select('*')
+            .order('ordem', { ascending: true })
+
+        if (data) {
+            setFotos(data)
+        }
+    }
+
+    const fotosSecao = fotos.filter(f => f.secao === secaoAtiva)
+
+    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const files = e.target.files
+        if (!files || files.length === 0) return
+
+        if (fotosSecao.length >= 8) {
+            alert('Limite de 8 fotos por seção atingido!')
+            return
+        }
+
+        setUploading(true)
+
+        for (const file of Array.from(files)) {
+            if (file.size > 5 * 1024 * 1024) {
+                alert(`Arquivo ${file.name} é maior que 5MB`)
+                continue
+            }
+
+            const fileExt = file.name.split('.').pop()
+            const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`
+            const filePath = `${secaoAtiva}/${fileName}`
+
+            // Upload para Supabase Storage
+            const { error: uploadError } = await supabase.storage
+                .from('galeria')
+                .upload(filePath, file)
+
+            if (uploadError) {
+                console.error('Erro no upload:', uploadError)
+                continue
+            }
+
+            // Pegar URL pública
+            const { data: { publicUrl } } = supabase.storage
+                .from('galeria')
+                .getPublicUrl(filePath)
+
+            // Salvar no banco
+            await supabase.from('galeria').insert({
+                url: publicUrl,
+                alt: file.name.replace(/\.[^/.]+$/, ''),
+                secao: secaoAtiva,
+                ordem: fotosSecao.length,
+                ativo: true,
+            })
+        }
+
+        await loadFotos()
+        setUploading(false)
+        e.target.value = ''
+    }
+
+    const handleDelete = async (foto: Galeria) => {
+        if (!confirm('Tem certeza que deseja excluir esta foto?')) return
+
+        // Extrair path do storage da URL
+        const urlParts = foto.url.split('/galeria/')
+        if (urlParts.length > 1) {
+            const storagePath = urlParts[1]
+            await supabase.storage.from('galeria').remove([storagePath])
+        }
+
+        await supabase.from('galeria').delete().eq('id', foto.id)
+        await loadFotos()
+    }
+
+    const handleUpdateAlt = async () => {
+        if (!editingFoto) return
+
+        await supabase
+            .from('galeria')
+            .update({ alt: editingFoto.alt })
+            .eq('id', editingFoto.id)
+
+        await loadFotos()
+        setEditingFoto(null)
+    }
+
+    return (
+        <div className="p-8">
+            {/* Header */}
+            <div className="flex items-center justify-between mb-8">
+                <div>
+                    <h1 className="text-2xl font-bold text-gray-900">Galeria</h1>
+                    <p className="text-gray-500">Gerencie as fotos do site</p>
+                </div>
+                <label className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors cursor-pointer">
+                    <span className="material-symbols-outlined text-[20px]">upload</span>
+                    {uploading ? 'Enviando...' : 'Upload'}
+                    <input
+                        type="file"
+                        accept="image/*"
+                        multiple
+                        onChange={handleUpload}
+                        className="hidden"
+                        disabled={uploading}
+                    />
+                </label>
+            </div>
+
+            {/* Tabs de seção */}
+            <div className="flex gap-2 mb-6">
+                {secoes.map(secao => (
+                    <button
+                        key={secao.value}
+                        onClick={() => setSecaoAtiva(secao.value as typeof secaoAtiva)}
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${secaoAtiva === secao.value
+                                ? 'bg-green-600 text-white'
+                                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                            }`}
+                    >
+                        {secao.label}
+                    </button>
+                ))}
+            </div>
+
+            {/* Info */}
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-6 flex items-center gap-2">
+                <span className="material-symbols-outlined text-blue-600">info</span>
+                <span className="text-sm text-blue-800">
+                    <strong>{fotosSecao.length}/8</strong> fotos na seção. Máximo 5MB por imagem.
+                </span>
+            </div>
+
+            {/* Grid de fotos */}
+            {fotosSecao.length > 0 ? (
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    {fotosSecao.map(foto => (
+                        <div key={foto.id} className="relative group">
+                            <div className="aspect-square rounded-xl overflow-hidden bg-gray-100">
+                                <img
+                                    src={foto.url}
+                                    alt={foto.alt}
+                                    className="w-full h-full object-cover"
+                                />
+                            </div>
+                            {/* Overlay */}
+                            <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl flex items-center justify-center gap-2">
+                                <button
+                                    onClick={() => setEditingFoto(foto)}
+                                    className="p-2 bg-white rounded-lg hover:bg-gray-100"
+                                    title="Editar"
+                                >
+                                    <span className="material-symbols-outlined text-gray-700">edit</span>
+                                </button>
+                                <button
+                                    onClick={() => handleDelete(foto)}
+                                    className="p-2 bg-white rounded-lg hover:bg-red-50"
+                                    title="Excluir"
+                                >
+                                    <span className="material-symbols-outlined text-red-600">delete</span>
+                                </button>
+                            </div>
+                            <p className="text-xs text-gray-500 mt-1 truncate">{foto.alt}</p>
+                        </div>
+                    ))}
+                </div>
+            ) : (
+                <div className="text-center py-16 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200">
+                    <span className="material-symbols-outlined text-gray-300 text-[48px]">image</span>
+                    <p className="text-gray-500 mt-2">Nenhuma foto nesta seção</p>
+                    <p className="text-sm text-gray-400">Clique em "Upload" para adicionar</p>
+                </div>
+            )}
+
+            {/* Modal de edição */}
+            {editingFoto && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-md mx-4">
+                        <div className="flex items-center justify-between mb-4">
+                            <h3 className="text-xl font-bold text-gray-900">Editar Foto</h3>
+                            <button onClick={() => setEditingFoto(null)} className="p-2 hover:bg-gray-100 rounded-lg">
+                                <span className="material-symbols-outlined">close</span>
+                            </button>
+                        </div>
+
+                        <div className="aspect-video rounded-lg overflow-hidden bg-gray-100 mb-4">
+                            <img
+                                src={editingFoto.url}
+                                alt={editingFoto.alt}
+                                className="w-full h-full object-cover"
+                            />
+                        </div>
+
+                        <div className="mb-4">
+                            <label className="block text-sm font-medium text-gray-700 mb-1">Texto Alternativo</label>
+                            <input
+                                type="text"
+                                value={editingFoto.alt}
+                                onChange={(e) => setEditingFoto({ ...editingFoto, alt: e.target.value })}
+                                className="w-full px-4 py-2 border border-gray-300 rounded-lg"
+                                placeholder="Descrição da imagem"
+                            />
+                        </div>
+
+                        <button
+                            onClick={handleUpdateAlt}
+                            className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors"
+                        >
+                            Salvar
+                        </button>
+                    </div>
+                </div>
+            )}
+        </div>
+    )
+}
