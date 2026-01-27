@@ -6,7 +6,7 @@ export default function Hero({ imageUrl }: HeroProps) {
     const defaultImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuAXvkkAbQqO2ue5LAh5DPi67pAFNJw5UQ1PLnV9Bg3DvtbZUkE7_UJqjflbqrcT9f-1q-g1PrvSAByxODkuT_qtI_GnFrIwMmYyToMj7cZK4tof_vkSeEj8gMdK5Aoa1Jtn-hHH6wCUVR2EVijlCkbGyY4DwGbkAaNIgya1CYqx3-znhL7ZXDoX6bZb94pXtmCqk9ceZYAidM2eD5vOPHx0OrxMLvF9BrIDaRnpe5jYeP4MgSMlbLRy0IXe4dLbwvJ_V5xadLy9PKmp"
 
     return (
-        <section className="relative min-h-screen flex items-center pt-24 pb-12 px-6 lg:px-20 overflow-hidden bg-background-light" id="inicio">
+        <section className="relative min-h-screen flex items-center pt-12 pb-12 px-6 lg:px-20 overflow-hidden bg-background-light" id="inicio">
             {/* Organic Background Shapes */}
             <div className="absolute inset-0 overflow-hidden pointer-events-none">
                 <div className="absolute -top-40 -right-40 w-96 h-96 bg-gradient-to-br from-primary/10 to-primary/5 rounded-full blur-3xl" />

@@ -3,12 +3,14 @@ import Header from '@/components/site/Header'
 import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
 import { createClient } from '@/lib/supabase/server'
+import BannerAvisos from '@/components/site/BannerAvisos'
 
 export const dynamic = 'force-dynamic'
 
 export default async function FAQPage() {
     const supabase = await createClient()
     const { data: config } = await supabase.from('configuracoes').select('*').single()
+    const { data: avisos } = await supabase.from('avisos').select('*').eq('ativo', true)
 
     const faqItems = [
         {
@@ -97,6 +99,7 @@ export default async function FAQPage() {
 
     return (
         <div className="relative flex min-h-screen w-full flex-col">
+            <BannerAvisos avisos={avisos || []} />
             <Header whatsapp={config?.whatsapp} />
 
             {/* Page Title */}

@@ -11,6 +11,7 @@ import Regras from '@/components/site/Regras'
 import CalendarioSite from '@/components/site/Calendario'
 import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
+import BannerAvisos from '@/components/site/BannerAvisos'
 
 interface GaleriaItem {
   id: string
@@ -69,13 +70,7 @@ export default async function Home() {
 
   return (
     <main className="min-h-screen">
-      {/* Avisos Banner */}
-      {avisos && avisos.length > 0 && (
-        <div className="bg-gradient-to-r from-primary to-primary-light text-white py-3 px-6 text-center text-sm font-bold">
-          {avisos[0].titulo}: {avisos[0].mensagem}
-        </div>
-      )}
-
+      <BannerAvisos avisos={avisos || []} />
       <Header whatsapp={config?.whatsapp} />
 
       <Hero imageUrl={heroImage} />
