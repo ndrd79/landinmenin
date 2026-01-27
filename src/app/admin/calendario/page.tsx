@@ -30,7 +30,6 @@ export default function CalendarioAdmin() {
 
     const supabase = createClient()
 
-    // Carregar eventos do mês
     useEffect(() => {
         loadEventos()
     }, [currentDate])
@@ -55,19 +54,9 @@ export default function CalendarioAdmin() {
         const month = currentDate.getMonth()
         const firstDay = new Date(year, month, 1).getDay()
         const daysInMonth = new Date(year, month + 1, 0).getDate()
-
         const days = []
-
-        // Dias vazios antes do primeiro dia do mês
-        for (let i = 0; i < firstDay; i++) {
-            days.push(null)
-        }
-
-        // Dias do mês
-        for (let i = 1; i <= daysInMonth; i++) {
-            days.push(i)
-        }
-
+        for (let i = 0; i < firstDay; i++) days.push(null)
+        for (let i = 1; i <= daysInMonth; i++) days.push(i)
         return days
     }
 
@@ -97,7 +86,6 @@ export default function CalendarioAdmin() {
                 observacao: '',
             })
         }
-
         setModalOpen(true)
     }
 
@@ -115,64 +103,42 @@ export default function CalendarioAdmin() {
         }
 
         if (existingEvento) {
-            await supabase
-                .from('calendario')
-                .update(data)
-                .eq('id', existingEvento.id)
+            await supabase.from('calendario').update(data).eq('id', existingEvento.id)
         } else {
-            await supabase
-                .from('calendario')
-                .insert(data)
+            await supabase.from('calendario').insert(data)
         }
 
         await loadEventos()
         setModalOpen(false)
     }
 
-    const prevMonth = () => {
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
-    }
-
-    const nextMonth = () => {
-        setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
-    }
-
     return (
         <div className="p-8">
-            {/* Header */}
             <div className="flex items-center justify-between mb-8">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">Calendário</h1>
-                    <p className="text-gray-500">Gerencie reservas e disponibilidade</p>
+                    <h1 className="text-2xl font-bold text-gray-900">Calendário Admin</h1>
+                    <p className="text-gray-500">Gerencie preços e avisos de promoção</p>
                 </div>
             </div>
 
-            {/* Calendário */}
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6">
-                {/* Navegação do mês */}
-                <div className="flex items-center justify-between mb-6">
-                    <button onClick={prevMonth} className="p-2 hover:bg-gray-100 rounded-lg">
+            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 overflow-x-auto">
+                <div className="flex items-center justify-between mb-6 min-w-[300px]">
+                    <button onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                         <span className="material-symbols-outlined">chevron_left</span>
                     </button>
-                    <h2 className="text-xl font-bold text-gray-900">
-                        {meses[currentDate.getMonth()]} {currentDate.getFullYear()}
-                    </h2>
-                    <button onClick={nextMonth} className="p-2 hover:bg-gray-100 rounded-lg">
+                    <h2 className="text-xl font-bold text-gray-900">{meses[currentDate.getMonth()]} {currentDate.getFullYear()}</h2>
+                    <button onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                         <span className="material-symbols-outlined">chevron_right</span>
                     </button>
                 </div>
 
-                {/* Dias da semana */}
-                <div className="grid grid-cols-7 gap-2 mb-2">
+                <div className="grid grid-cols-7 gap-2 mb-2 min-w-[350px]">
                     {diasSemana.map(dia => (
-                        <div key={dia} className="text-center text-sm font-bold text-gray-500 py-2">
-                            {dia}
-                        </div>
+                        <div key={dia} className="text-center text-sm font-bold text-gray-500 py-2">{dia}</div>
                     ))}
                 </div>
 
-                {/* Dias do mês */}
-                <div className="grid grid-cols-7 gap-2">
+                <div className="grid grid-cols-7 gap-2 min-w-[350px]">
                     {getDaysInMonth().map((day, index) => {
                         const evento = getEventoForDay(day)
                         return (
@@ -180,12 +146,11 @@ export default function CalendarioAdmin() {
                                 {day && (
                                     <button
                                         onClick={() => handleDayClick(day)}
-                                        className={`w-full h-full rounded-lg border-2 flex flex-col items-center justify-center transition-all hover:scale-105 ${evento ? statusColors[evento.status] : 'bg-white border-gray-200 hover:border-green-300'
-                                            }`}
+                                        className={`w-full h-full rounded-lg border-2 flex flex-col items-center justify-center transition-all hover:scale-105 ${evento ? statusColors[evento.status] : 'bg-white border-gray-200 hover:border-green-300'}`}
                                     >
                                         <span className="text-lg font-bold">{day}</span>
-                                        {evento?.preco_especial && (
-                                            <span className="text-[10px] font-medium">R${evento.preco_especial}</span>
+                                        {evento?.status === 'promocao' && (
+                                            <span className="text-[9px] font-bold uppercase text-yellow-700">Promo</span>
                                         )}
                                     </button>
                                 )}
@@ -193,78 +158,60 @@ export default function CalendarioAdmin() {
                         )
                     })}
                 </div>
-
-                {/* Legenda */}
-                <div className="flex flex-wrap gap-4 mt-6 pt-4 border-t border-gray-100">
-                    <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 rounded bg-green-100 border-2 border-green-300"></span>
-                        <span className="text-sm text-gray-600">Disponível</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 rounded bg-red-100 border-2 border-red-300"></span>
-                        <span className="text-sm text-gray-600">Reservado</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 rounded bg-yellow-100 border-2 border-yellow-300"></span>
-                        <span className="text-sm text-gray-600">Promoção</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                        <span className="w-4 h-4 rounded bg-gray-200 border-2 border-gray-300"></span>
-                        <span className="text-sm text-gray-600">Indisponível</span>
-                    </div>
-                </div>
             </div>
 
-            {/* Modal */}
             {modalOpen && (
-                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-                    <div className="bg-white rounded-2xl p-6 w-full max-w-md mx-4">
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+                    <div className="bg-white rounded-2xl p-6 w-full max-w-md shadow-2xl">
                         <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-xl font-bold text-gray-900">
-                                {selectedDate && new Date(selectedDate + 'T12:00:00').toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric' })}
-                            </h3>
+                            <h3 className="text-xl font-bold">Configurar Data</h3>
                             <button onClick={() => setModalOpen(false)} className="p-2 hover:bg-gray-100 rounded-lg">
                                 <span className="material-symbols-outlined">close</span>
                             </button>
                         </div>
 
                         <div className="space-y-4">
-                            {/* Status */}
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Status do Dia</label>
                                 <div className="grid grid-cols-2 gap-2">
                                     {(['disponivel', 'reservado', 'promocao', 'indisponivel'] as StatusCalendario[]).map(status => (
                                         <button
                                             key={status}
                                             onClick={() => setFormData({ ...formData, status })}
-                                            className={`p-3 rounded-lg border-2 text-sm font-medium capitalize ${formData.status === status ? statusColors[status] : 'bg-white border-gray-200'
-                                                }`}
+                                            className={`p-3 rounded-lg border-2 text-sm font-medium capitalize flex items-center gap-2 ${formData.status === status ? statusColors[status] : 'bg-white border-gray-200'}`}
                                         >
-                                            {status === 'disponivel' && '✅ '}
-                                            {status === 'reservado' && '🔴 '}
-                                            {status === 'promocao' && '🔥 '}
-                                            {status === 'indisponivel' && '⛔ '}
+                                            {status === 'disponivel' ? '✅' : status === 'reservado' ? '🔴' : status === 'promocao' ? '🔥' : '⛔'}
                                             {status}
                                         </button>
                                     ))}
                                 </div>
                             </div>
 
-                            {/* Preço especial */}
-                            {(formData.status === 'promocao' || formData.status === 'reservado') && (
-                                <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Preço Especial (R$)</label>
-                                    <input
-                                        type="number"
-                                        value={formData.preco_especial}
-                                        onChange={(e) => setFormData({ ...formData, preco_especial: e.target.value })}
-                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                        placeholder="Ex: 450"
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Preço Especial (Opcional)</label>
+                                <input
+                                    type="number"
+                                    value={formData.preco_especial}
+                                    onChange={(e) => setFormData({ ...formData, preco_especial: e.target.value })}
+                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
+                                    placeholder="R$ 00,00"
+                                />
+                            </div>
+
+                            {formData.status === 'promocao' && (
+                                <div className="p-4 bg-yellow-50 rounded-xl border border-yellow-200">
+                                    <label className="block text-sm font-bold text-yellow-800 mb-2">Aviso de Promoção (Aparecerá no site)</label>
+                                    <textarea
+                                        value={formData.observacao}
+                                        onChange={(e) => setFormData({ ...formData, observacao: e.target.value })}
+                                        className="w-full px-4 py-2 border border-yellow-300 rounded-lg focus:ring-2 focus:ring-yellow-500"
+                                        rows={3}
+                                        placeholder="Ex: Todas as Segundas o valor é reduzido para R$450!"
                                     />
+                                    <p className="text-[10px] text-yellow-700 mt-2">Este texto será exibido quando o cliente clicar na data no site.</p>
                                 </div>
                             )}
 
-                            {/* Nome do cliente */}
                             {formData.status === 'reservado' && (
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Nome do Cliente</label>
@@ -278,24 +225,8 @@ export default function CalendarioAdmin() {
                                 </div>
                             )}
 
-                            {/* Observação */}
-                            <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Observação (opcional)</label>
-                                <textarea
-                                    value={formData.observacao}
-                                    onChange={(e) => setFormData({ ...formData, observacao: e.target.value })}
-                                    className="w-full px-4 py-2 border border-gray-300 rounded-lg"
-                                    rows={2}
-                                    placeholder="Anotações internas..."
-                                />
-                            </div>
-
-                            {/* Botão Salvar */}
-                            <button
-                                onClick={handleSave}
-                                className="w-full bg-green-600 text-white font-bold py-3 rounded-lg hover:bg-green-700 transition-colors"
-                            >
-                                Salvar
+                            <button onClick={handleSave} className="w-full bg-green-600 text-white font-bold py-4 rounded-xl hover:bg-green-700 transition-all shadow-lg">
+                                Salvar Alterações
                             </button>
                         </div>
                     </div>
