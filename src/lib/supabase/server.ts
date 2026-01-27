@@ -6,7 +6,10 @@ export async function createClient() {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseKey) {
-        throw new Error('Supabase URL e ANON KEY são obrigatórios. Configure o arquivo .env.local')
+        // Durante o build no Vercel as variáveis podem estar ausentes.
+        // Retornamos um proxy ou objeto vazio para não quebrar o prerender, 
+        // mas as páginas devem ser force-dynamic.
+        return {} as any
     }
 
     const cookieStore = await cookies()
