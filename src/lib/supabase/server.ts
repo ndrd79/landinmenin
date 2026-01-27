@@ -6,10 +6,11 @@ export async function createClient() {
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
     if (!supabaseUrl || !supabaseKey) {
-        // Durante o build no Vercel as variáveis podem estar ausentes.
-        // Retornamos um proxy ou objeto vazio para não quebrar o prerender, 
-        // mas as páginas devem ser force-dynamic.
-        return {} as any
+        console.error('Missing Supabase environment variables:', {
+            NEXT_PUBLIC_SUPABASE_URL: supabaseUrl ? 'SET' : 'MISSING',
+            NEXT_PUBLIC_SUPABASE_ANON_KEY: supabaseKey ? 'SET' : 'MISSING'
+        })
+        throw new Error('Supabase environment variables are not configured. Please check NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY in your Vercel environment settings.')
     }
 
     const cookieStore = await cookies()
