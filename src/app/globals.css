@@ -178,9 +178,9 @@ h6 {
 
 /* Calendar Day States - Organic Biophilic Colors */
 .day-available {
-  background: rgba(74, 124, 35, 0.1);
-  color: #365A1A;
-  border: 1px solid rgba(74, 124, 35, 0.2);
+  background: rgba(74, 124, 35, 0.05) !important;
+  color: #365A1A !important;
+  border-color: rgba(74, 124, 35, 0.1) !important;
 }
 
 .day-available:hover {
@@ -190,35 +190,35 @@ h6 {
 }
 
 .day-reserved {
-  background: #FEE2E2;
-  color: #991B1B;
-  border: 1px solid #FECACA;
+  background: #fee2e2 !important;
+  color: #991b1b !important;
+  border-color: #fecaca !important;
   cursor: not-allowed;
 }
 
 .day-promotion {
-  background: rgba(212, 165, 116, 0.2);
-  color: #8B5E3C;
-  border: 2px solid #D4A574;
+  background: rgba(212, 165, 116, 0.1) !important;
+  color: #8B5E3C !important;
+  border-color: #D4A574 !important;
+  border-width: 1.5px !important;
 }
 
 .day-promotion:hover {
-  background: rgba(212, 165, 116, 0.4);
+  background: rgba(212, 165, 116, 0.2) !important;
 }
 
 .day-past {
-  background: #F3F4F6;
-  color: #9CA3AF;
-  border: 1px solid transparent;
+  background: #f3f4f6 !important;
+  color: #9ca3af !important;
+  border-color: transparent !important;
   cursor: not-allowed;
 }
 
 .day-selected {
   background: #D4A574 !important;
-  color: #8B5E3C !important;
+  color: white !important;
   border-color: #A67B5B !important;
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.4);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.3);
 }
 
 /* FAQ Styles - Details/Summary normalization */

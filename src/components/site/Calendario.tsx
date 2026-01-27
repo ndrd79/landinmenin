@@ -54,11 +54,11 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
                         setShowModal({ date: dateStr, text: agendamento.observacao });
                     }
                 }}
-                className={`h-12 md:h-14 flex flex-col items-center justify-center rounded-xl text-sm font-semibold transition-all relative cursor-pointer ${statusClass}`}
+                className={`aspect-square flex flex-col items-center justify-center rounded-2xl text-sm font-semibold transition-all relative cursor-pointer border ${statusClass}`}
             >
                 {day}
                 {status === 'promocao' && (
-                    <span className="text-[8px] absolute bottom-1 px-1 bg-accent/20 rounded uppercase font-bold text-accent">Promo</span>
+                    <span className="text-[7px] absolute bottom-1 px-1 bg-accent/20 rounded uppercase font-bold text-accent">Promo</span>
                 )}
             </div>
         )
