@@ -141,7 +141,7 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
                     </div>
 
                     {/* CTA Card */}
-                    <div className="lg:pt-8">
+                    <div>
                         <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light rounded-3xl p-8 md:p-10 text-white shadow-2xl shadow-primary/20 relative overflow-hidden">
                             {/* Decorative Elements */}
                             <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -translate-y-1/2 translate-x-1/2" />
