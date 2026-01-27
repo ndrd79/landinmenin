@@ -39,13 +39,59 @@ export default async function FAQPage() {
         {
             icon: 'schedule',
             question: 'Qual é o horário de utilização?',
-            answer: `O horário padrão é das 09:00 às ${config?.horario_checkout || '22:00'} horas. Alugando 2 dias, é permitido pernoitar no local com valores reduzidos.`
+            answer: `O horário padrão é das 08:00 às ${config?.horario_checkout || '22:00'} horas. Alugando 2 dias, é permitido pernoitar no local com valores reduzidos.`
         },
         {
             icon: 'bed',
             question: 'O espaço fornece roupa de cama?',
             answer: '❌ Não fornecemos roupa de cama.',
             variant: 'red'
+        },
+        {
+            icon: 'cleaning_services',
+            question: 'A área é entregue limpa?',
+            answer: '✔ Sim! A área de lazer é entregue totalmente limpa, incluindo os banheiros.'
+        },
+        {
+            icon: 'liquor',
+            question: 'Posso colocar bebidas para gelar antes do evento?',
+            answer: '👍 Sim! Caso a festa tenha muita bebida, você pode colocar para gelar um dia antes, desde que avise com antecedência.'
+        },
+        {
+            icon: 'event_available',
+            question: 'Como funciona a reserva da data?',
+            answer: 'A reserva só é confirmada mediante pagamento de uma entrada mínima de R$ 200. O restante do valor pode ser pago até a data reservada. Em caso de cancelamento, a entrada não é reembolsada.'
+        },
+        {
+            icon: 'credit_card',
+            question: 'Aceita cartão de crédito?',
+            answer: '✔ Sim! Parcelamos no cartão de crédito em até 12x, com juros por conta do locatário.'
+        },
+        {
+            icon: 'park',
+            question: 'Como é o ambiente do local?',
+            answer: 'Ambiente arejado, área rural e arborizada, sem problemas com vizinhança. Ideal para quem busca tranquilidade e conforto.'
+        },
+        {
+            icon: 'inventory',
+            question: 'O que está incluso no aluguel?',
+            answer: 'Clube coberto (154m²), 40 cadeiras, 10 mesas plásticas, 2 mesas para baralho, 1 mesa grande de mármore, Wi-Fi, TV e Som, Iluminação de festa, Gás de cozinha, 2 banheiros, Cama elástica, 1 freezer (400L), 2 geladeiras, 2 quiosques e Piscina grande.'
+        },
+        {
+            icon: 'do_not_disturb',
+            question: 'Quais itens NÃO são fornecidos?',
+            answer: 'Não fornecemos: Papel higiênico, Panelas, Detergente e Talheres.',
+            variant: 'red'
+        },
+        {
+            icon: 'photo_camera',
+            question: 'Onde posso ver mais fotos e novidades?',
+            answer: 'Você pode nos acompanhar pelo Facebook (@estancia_menin) ou Instagram (@estancia_menin). Também temos um grupo no WhatsApp para promoções e datas.'
+        },
+        {
+            icon: 'call',
+            question: 'Como entrar em contato para dúvidas ou reservas?',
+            answer: `Para mais informações ou reservas, entre em contato pelo telefone: (18) 99747-3445.`
         }
     ]
 
@@ -54,42 +100,44 @@ export default async function FAQPage() {
             <Header whatsapp={config?.whatsapp} />
 
             {/* Page Title */}
-            <section className="bg-[#102213] px-6 py-16 lg:px-20 text-white relative overflow-hidden">
+            <section className="bg-primary-dark px-6 py-16 lg:px-20 text-white relative overflow-hidden">
                 <div
                     className="absolute inset-0 opacity-10"
-                    style={{ backgroundImage: 'radial-gradient(#13ec37 1px, transparent 1px)', backgroundSize: '32px 32px' }}
+                    style={{ backgroundImage: 'radial-gradient(#4a7c23 1px, transparent 1px)', backgroundSize: '32px 32px' }}
                 />
                 <div className="mx-auto max-w-[900px] relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-green-900/50 px-4 py-2 text-sm font-bold text-green-400 mb-4">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-primary-light mb-4 backdrop-blur-sm">
                         <span className="material-symbols-outlined text-[18px]">help</span>
                         Dúvidas Frequentes
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4">Perguntas Frequentes</h1>
-                    <p className="text-green-200 text-lg">Tire suas dúvidas sobre a Estância Menin</p>
+                    <h1 className="text-4xl md:text-5xl font-extrabold mb-4 font-display">Perguntas Frequentes</h1>
+                    <p className="text-white/80 text-lg">Tire suas dúvidas sobre a Estância Menin</p>
                 </div>
             </section>
 
             {/* FAQ Content */}
-            <section className="bg-[#f8fcf9] px-6 py-16 lg:px-20 flex-1">
+            <section className="bg-background-warm px-6 py-16 lg:px-20 flex-1">
                 <div className="mx-auto max-w-[900px]">
                     <div className="space-y-4">
                         {faqItems.map((item, index) => (
                             <details key={index} className="faq-item group" open={index === 0}>
-                                <summary className="faq-summary">
-                                    <span className={`material-symbols-outlined mr-3 ${item.variant === 'red' ? 'text-red-500' : 'text-green-600'}`}>
-                                        {item.icon}
-                                    </span>
-                                    <span className="flex-1">{item.question}</span>
-                                    <span className="material-symbols-outlined faq-icon">expand_more</span>
+                                <summary className="faq-summary list-none cursor-pointer flex items-center p-6 bg-white rounded-2xl border border-primary/10 shadow-sm hover:border-primary/30 transition-all">
+                                    <div className={`w-10 h-10 rounded-xl flex items-center justify-center mr-4 ${item.variant === 'red' ? 'bg-red-50 text-red-500' : 'bg-primary/10 text-primary'}`}>
+                                        <span className="material-symbols-outlined text-[20px]">
+                                            {item.icon}
+                                        </span>
+                                    </div>
+                                    <span className="flex-1 font-bold text-text-main text-lg">{item.question}</span>
+                                    <span className="material-symbols-outlined faq-icon text-primary transition-transform group-open:rotate-180">expand_more</span>
                                 </summary>
-                                <div className="faq-content">
-                                    <p>{item.answer}</p>
+                                <div className="faq-content p-6 pt-2 bg-white rounded-b-2xl border-x border-b border-primary/5 -mt-2">
+                                    <p className="text-text-muted leading-relaxed whitespace-pre-line">{item.answer}</p>
                                     {item.link && (
                                         <a
                                             href={item.link.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium mt-2"
+                                            className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-bold mt-4"
                                         >
                                             <span className="material-symbols-outlined text-[18px]">map</span>
                                             {item.link.text}
@@ -100,16 +148,18 @@ export default async function FAQPage() {
                         ))}
                     </div>
 
-                    <div className="mt-12 bg-white rounded-2xl p-8 border border-green-100 text-center shadow-sm">
-                        <h3 className="text-xl font-bold text-text-main mb-2">Ainda tem dúvidas?</h3>
-                        <p className="text-gray-500 mb-6">Entre em contato diretamente pelo WhatsApp</p>
+                    <div className="mt-12 bg-white rounded-3xl p-8 border border-primary/10 text-center shadow-xl shadow-primary/5">
+                        <div className="w-16 h-16 bg-primary/10 rounded-2xl flex items-center justify-center mx-auto mb-6 text-primary">
+                            <span className="material-symbols-outlined text-3xl">chat</span>
+                        </div>
+                        <h3 className="text-2xl font-bold text-text-main mb-2">Ainda tem dúvidas?</h3>
+                        <p className="text-text-muted mb-8">Entre em contato diretamente pelo WhatsApp</p>
                         <a
-                            href={`https://wa.me/55${config?.whatsapp?.replace(/\D/g, '') || '18997473445'}?text=Olá! Tenho uma dúvida.`}
+                            href={`https://wa.me/55${config?.whatsapp?.replace(/\D/g, '') || '18997473445'}?text=Olá! Tenho uma dúvida sobre a Estância Menin.`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-3 bg-green-500 text-white font-bold px-8 py-4 rounded-xl hover:bg-green-600 transition-colors shadow-lg shadow-green-200"
+                            className="inline-flex items-center gap-3 bg-gradient-to-r from-primary to-primary-light text-white font-bold px-10 py-4 rounded-2xl hover:shadow-lg hover:-translate-y-1 transition-all shadow-primary/20"
                         >
-                            <span className="material-symbols-outlined">chat</span>
                             Falar no WhatsApp
                         </a>
                     </div>

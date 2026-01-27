@@ -225,3 +225,33 @@ h6 {
 details summary::-webkit-details-marker {
   display: none;
 }
+
+.faq-item {
+  transition: all 0.3s ease;
+}
+
+.faq-summary {
+  list-style: none;
+  display: flex;
+}
+
+.faq-summary:focus {
+  outline: none;
+}
+
+.faq-content {
+  animation: slideDown 0.38s cubic-bezier(0.2, 0, 0.38, 0.9) forwards;
+  overflow: hidden;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
