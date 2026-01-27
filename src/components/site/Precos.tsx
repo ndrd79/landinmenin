@@ -1,129 +1,159 @@
 interface Pacote {
     id: string
-    titulo: string
-    descricao: string
+    nome: string
     preco: number
-    itens: string[]
-    destaque: boolean
-    cor_badge: string
+    descricao: string
+    itens_inclusos: string[]
+    destaque?: boolean
 }
 
 interface PrecosProps {
-    pacotes?: Pacote[] | null
-    horarioCheckout?: string | null
+    pacotes?: Pacote[]
+    horarioCheckout?: string
 }
 
-export default function Precos({ pacotes, horarioCheckout }: PrecosProps) {
-    const defaultPacotes: Pacote[] = [
-        {
-            id: '1',
-            titulo: 'Sem Quarto',
-            descricao: 'Apenas área externa',
-            preco: 550,
-            itens: ['Área externa completa', 'Piscina e Quiosque', '40 cadeiras e 10 mesas', 'Churrasqueira e freezer'],
-            destaque: false,
-            cor_badge: 'gray'
-        },
-        {
-            id: '2',
-            titulo: 'Com Ventilador',
-            descricao: '1 quarto com ventilador',
-            preco: 600,
-            itens: ['Tudo do pacote anterior', 'Acesso a 1 quarto', 'Ventilador potente', 'Banheiro privativo'],
-            destaque: false,
-            cor_badge: 'blue'
-        },
-        {
-            id: '3',
-            titulo: 'Com Ar',
-            descricao: '1 quarto com ar condicionado',
-            preco: 650,
-            itens: ['Tudo do pacote anterior', 'Ar-condicionado gelando', 'Conforto térmico total', 'Ideal para o calor'],
-            destaque: false,
-            cor_badge: 'cyan'
-        },
-        {
-            id: '4',
-            titulo: 'Completo',
-            descricao: '2 quartos com ar condicionado',
-            preco: 700,
-            itens: ['Tudo do pacote anterior', 'Acesso a 2 quartos', 'Ambos com ar-condicionado', 'Melhor custo-benefício'],
-            destaque: true,
-            cor_badge: 'green'
-        }
-    ]
+const defaultPacotes: Pacote[] = [
+    {
+        id: '1',
+        nome: 'Diária',
+        preco: 500,
+        descricao: 'Perfeito para um dia de lazer',
+        itens_inclusos: ['Uso da piscina', 'Churrasqueira', 'Quiosque', 'Estacionamento'],
+    },
+    {
+        id: '2',
+        nome: 'Final de Semana',
+        preco: 1200,
+        descricao: 'Ideal para curtir o fim de semana completo',
+        itens_inclusos: ['Uso da piscina', 'Churrasqueira', 'Quiosque', 'Estacionamento', 'Pernoite', 'Café da manhã'],
+        destaque: true,
+    },
+    {
+        id: '3',
+        nome: 'Semana Completa',
+        preco: 3000,
+        descricao: 'Para quem quer relaxar por mais tempo',
+        itens_inclusos: ['Uso da piscina', 'Churrasqueira', 'Quiosque', 'Estacionamento', 'Pernoite', 'Café da manhã', 'Limpeza diária'],
+    },
+]
 
+export default function Precos({ pacotes, horarioCheckout }: PrecosProps) {
     const displayPacotes = pacotes && pacotes.length > 0 ? pacotes : defaultPacotes
 
     return (
-        <section className="bg-white px-6 py-20 lg:px-20" id="precos">
-            <div className="mx-auto max-w-[1280px]">
+        <section className="relative py-24 px-6 lg:px-20 bg-white overflow-hidden" id="precos">
+            {/* Background */}
+            <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-primary/5 to-transparent rounded-full blur-3xl" />
+                <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-gradient-to-tl from-accent/10 to-transparent rounded-full blur-2xl" />
+            </div>
+
+            <div className="mx-auto max-w-[1280px] relative z-10">
+                {/* Header */}
                 <div className="text-center mb-16">
-                    <h2 className="text-4xl font-bold text-text-main">Valores e Pacotes</h2>
-                    <p className="text-text-muted mt-4 text-lg">Diárias das 09:00 às {horarioCheckout || '22:00'}</p>
+                    <div className="inline-flex items-center gap-2 text-primary mb-4">
+                        <div className="w-8 h-0.5 bg-primary rounded-full" />
+                        <span className="text-sm font-semibold uppercase tracking-wide">Pacotes e Preços</span>
+                        <div className="w-8 h-0.5 bg-primary rounded-full" />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-text-main mb-4">
+                        Escolha o melhor{' '}
+                        <span className="text-primary">pacote</span>{' '}
+                        para você
+                    </h2>
+                    <p className="text-lg text-text-muted max-w-2xl mx-auto">
+                        Oferecemos opções flexíveis para atender às suas necessidades
+                    </p>
                 </div>
 
-                <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                    {displayPacotes.map((pacote) => (
+                {/* Pricing Cards */}
+                <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    {displayPacotes.map((pacote, index) => (
                         <div
                             key={pacote.id}
-                            className={`relative flex flex-col rounded-3xl p-8 transition-all hover:-translate-y-2 border-2 ${pacote.destaque
-                                ? 'border-green-500 bg-green-50/30 shadow-xl shadow-green-100 scale-105 z-10'
-                                : 'border-gray-100 bg-white'
+                            className={`relative flex flex-col rounded-3xl transition-all duration-300 hover:-translate-y-2 ${pacote.destaque
+                                    ? 'bg-gradient-to-br from-primary to-primary-dark text-white shadow-2xl shadow-primary/30 scale-105 lg:scale-110 z-10'
+                                    : 'bg-white border-2 border-primary/10 hover:border-primary/30 hover:shadow-xl'
                                 }`}
                         >
+                            {/* Popular Badge */}
                             {pacote.destaque && (
-                                <span className="absolute -top-4 left-1/2 -translate-x-1/2 bg-green-500 text-white text-xs font-bold px-4 py-1.5 rounded-full uppercase tracking-wider">
-                                    Mais Popular
-                                </span>
+                                <div className="absolute -top-4 left-1/2 -translate-x-1/2">
+                                    <div className="flex items-center gap-1.5 bg-accent text-text-main px-4 py-1.5 rounded-full text-sm font-bold shadow-lg">
+                                        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                                            <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                                        </svg>
+                                        Mais Popular
+                                    </div>
+                                </div>
                             )}
-                            <div className="mb-6">
-                                <h3 className="text-xl font-bold text-text-main">{pacote.titulo}</h3>
-                                <p className="text-sm text-gray-500 mt-1">{pacote.descricao}</p>
+
+                            <div className="p-8 flex flex-col flex-1">
+                                {/* Package Name */}
+                                <h3 className={`text-xl font-bold mb-2 ${pacote.destaque ? 'text-white' : 'text-text-main'}`}>
+                                    {pacote.nome}
+                                </h3>
+                                <p className={`text-sm mb-6 ${pacote.destaque ? 'text-white/80' : 'text-text-muted'}`}>
+                                    {pacote.descricao}
+                                </p>
+
+                                {/* Price */}
+                                <div className="mb-6">
+                                    <div className="flex items-baseline gap-1">
+                                        <span className={`text-sm ${pacote.destaque ? 'text-white/60' : 'text-text-muted'}`}>R$</span>
+                                        <span className={`text-5xl font-bold ${pacote.destaque ? 'text-white' : 'text-primary'}`}>
+                                            {pacote.preco.toLocaleString('pt-BR')}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                {/* Features */}
+                                <ul className="flex-1 space-y-3 mb-8">
+                                    {pacote.itens_inclusos.map((item, idx) => (
+                                        <li key={idx} className="flex items-center gap-3">
+                                            <div className={`w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0 ${pacote.destaque ? 'bg-white/20' : 'bg-primary/10'
+                                                }`}>
+                                                <svg className={`w-3 h-3 ${pacote.destaque ? 'text-white' : 'text-primary'}`} fill="currentColor" viewBox="0 0 20 20">
+                                                    <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                                                </svg>
+                                            </div>
+                                            <span className={`text-sm ${pacote.destaque ? 'text-white/90' : 'text-text-muted'}`}>
+                                                {item}
+                                            </span>
+                                        </li>
+                                    ))}
+                                </ul>
+
+                                {/* CTA Button */}
+                                <a
+                                    href={`https://wa.me/5518997473445?text=Olá! Tenho interesse no pacote ${pacote.nome} - R$ ${pacote.preco.toLocaleString('pt-BR')}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className={`flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-semibold transition-all duration-300 cursor-pointer ${pacote.destaque
+                                            ? 'bg-white text-primary hover:bg-white/90 shadow-lg'
+                                            : 'bg-primary text-white hover:bg-primary-dark shadow-md shadow-primary/20'
+                                        }`}
+                                >
+                                    <span>Reservar agora</span>
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                                    </svg>
+                                </a>
                             </div>
-                            <div className="mb-8">
-                                <span className="text-4xl font-extrabold text-green-600">R$ {pacote.preco}</span>
-                                <span className="text-gray-400 text-sm ml-1">/diária</span>
-                            </div>
-                            <ul className="flex-1 space-y-4 mb-8">
-                                {pacote.itens.map((item, i) => (
-                                    <li key={i} className="flex items-start gap-3 text-sm text-gray-600">
-                                        <span className="material-symbols-outlined text-green-500 text-[18px]">check_circle</span>
-                                        {item}
-                                    </li>
-                                ))}
-                            </ul>
-                            <a
-                                href={`https://wa.me/5518997473445?text=Olá! Gostaria de reservar o pacote ${pacote.titulo}.`}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className={`w-full py-4 rounded-xl text-center font-bold transition-all ${pacote.destaque
-                                    ? 'bg-green-600 text-white hover:bg-green-700 shadow-lg shadow-green-200'
-                                    : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-                                    }`}
-                            >
-                                Reservar Agora
-                            </a>
                         </div>
                     ))}
                 </div>
 
-                <div className="mt-16 grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-                    <div className="flex items-center gap-4 bg-blue-50 p-6 rounded-2xl border border-blue-100">
-                        <div className="bg-blue-600 text-white rounded-full p-2">
-                            <span className="material-symbols-outlined">calendar_today</span>
-                        </div>
-                        <p className="text-blue-900 font-medium">
-                            Durante a semana (seg-sex) temos <strong>promoções especiais</strong>!
-                        </p>
-                    </div>
-                    <div className="flex items-center gap-4 bg-orange-50 p-6 rounded-2xl border border-orange-100">
-                        <div className="bg-orange-600 text-white rounded-full p-2">
-                            <span className="material-symbols-outlined">local_fire_department</span>
-                        </div>
-                        <p className="text-orange-900 font-medium">
-                            Pacotes de +1 dia com <strong>valores reduzidos</strong>. Consulte!
-                        </p>
+                {/* Checkout Info */}
+                <div className="mt-12 text-center">
+                    <div className="inline-flex items-center gap-2 bg-background-warm px-6 py-3 rounded-full">
+                        <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span className="text-sm text-text-muted">
+                            Check-out até às{' '}
+                            <span className="font-semibold text-text-main">{horarioCheckout || '14:00'}</span>
+                        </span>
                     </div>
                 </div>
             </div>
