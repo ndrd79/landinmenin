@@ -13,13 +13,7 @@ import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
 import BannerAvisos from '@/components/site/BannerAvisos'
 
-interface GaleriaItem {
-  id: string
-  url: string
-  alt: string
-  secao: string
-  ordem: number
-}
+import { Galeria as GaleriaType } from '@/types/database'
 
 // Default values when Supabase is not available
 const defaultConfig = {
@@ -37,7 +31,7 @@ export default async function Home() {
   let config = defaultConfig
   let pacotes = null
   let itensEstrutura = null
-  let fotos = null
+  let fotos: GaleriaType[] | null = null
   let agendamentos: Agendamento[] = []
   let avisos = null
 
@@ -65,8 +59,8 @@ export default async function Home() {
     // Continue with default values
   }
 
-  const heroImage = (fotos as GaleriaItem[] | null)?.find((f: GaleriaItem) => f.secao === 'hero')?.url
-  const galeriaFotos = (fotos as GaleriaItem[] | null)?.filter((f: GaleriaItem) => f.secao === 'galeria')
+  const heroImage = (fotos as GaleriaType[] | null)?.find((f: GaleriaType) => f.secao === 'hero')?.url
+  const galeriaFotos = (fotos as GaleriaType[] | null)?.filter((f: GaleriaType) => f.secao === 'galeria')
 
   return (
     <main className="min-h-screen">

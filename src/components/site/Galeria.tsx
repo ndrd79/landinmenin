@@ -2,14 +2,10 @@
 
 import { useState } from 'react'
 
-interface Foto {
-    id: string
-    url: string
-    alt: string
-}
+import { Galeria as GaleriaType } from '@/types/database'
 
 interface GaleriaProps {
-    fotos?: Foto[] | null
+    fotos?: GaleriaType[] | null
 }
 
 export default function Galeria({ fotos }: GaleriaProps) {
@@ -24,7 +20,10 @@ export default function Galeria({ fotos }: GaleriaProps) {
         { id: '6', url: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDXvR8TjfjpLN2F9zfuMHzVJO1D5bCU5dg6xJFG2_6FwmLJzqGKDJYzY0-vTHxfaFd4RV1_4lAOGvqME0K5VkYz5LquW2vHVbKqE_Ql', alt: 'Vista geral' },
     ]
 
-    const displayFotos = fotos && fotos.length > 0 ? fotos : defaultFotos
+    const activeFotos = fotos?.filter(f => f.ativo) || []
+    const displayFotos = activeFotos.length > 0 ? activeFotos : defaultFotos
+
+    if (displayFotos.length === 0) return null
 
     return (
         <section className="relative py-24 px-6 lg:px-20 bg-background-warm overflow-hidden" id="galeria">
