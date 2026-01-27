@@ -43,7 +43,7 @@ export default function Header({ whatsapp }: HeaderProps) {
 
     return (
         <>
-            <header className={`sticky top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
+            <header className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
                 ? 'bg-white shadow-lg shadow-primary/5'
                 : 'bg-white/95'
                 }`}>
