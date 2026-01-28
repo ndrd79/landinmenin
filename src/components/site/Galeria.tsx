@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Image from 'next/image'
 import { Galeria as GaleriaType } from '@/types/database'
 
 interface GaleriaProps {
@@ -56,10 +57,13 @@ export default function Galeria({ fotos }: GaleriaProps) {
                             onClick={() => setSelectedImage(foto.url)}
                             className="relative break-inside-avoid overflow-hidden rounded-2xl cursor-pointer group shadow-sm hover:shadow-xl transition-all duration-500"
                         >
-                            <img
+                            <Image
                                 src={foto.url}
-                                alt={foto.alt}
+                                alt={foto.alt || 'Foto da Estância Menin'}
+                                width={600}
+                                height={800}
                                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
+                                sizes="(max-width: 768px) 50vw, (max-width: 1024px) 33vw, 25vw"
                             />
 
                             {/* Refined Overlay - Minimalist */}

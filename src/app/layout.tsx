@@ -8,8 +8,21 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Estância Menin - Locação de Espaço para Eventos",
-  description: "Espaço completo para festas, confraternizações e eventos em geral. Quiosque, piscina, churrasqueira e muito mais.",
+  title: "Estância Menin | Locação de Chácara em Regente Feijó - SP",
+  description: "O melhor espaço para seu lazer e eventos em Regente Feijó. Chácara com piscina quentinha, churrasqueira, área gourmet e conforto para sua família.",
+  keywords: ["Estância Menin", "Chácara Regente Feijó", "Lazer Regente Feijó", "Aluguel de Chácara", "Piscina Aquecida", "Eventos Regente Feijó", "Chácara Presidente Prudente"],
+  openGraph: {
+    title: "Estância Menin | Chácara para Eventos e Lazer",
+    description: "Conheça a Estância Menin: piscina, área gourmet e o refúgio perfeito para seus melhores momentos.",
+    type: "website",
+    locale: "pt_BR",
+    url: "https://estanciamenin.com.br", // Ajustar se o domínio for outro
+    siteName: "Estância Menin",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  }
 };
 
 export default function RootLayout({
