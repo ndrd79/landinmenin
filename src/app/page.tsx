@@ -12,6 +12,7 @@ import CalendarioSite from '@/components/site/Calendario'
 import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
 import BannerAvisos from '@/components/site/BannerAvisos'
+import Depoimentos from '@/components/site/Depoimentos'
 
 import { Galeria as GaleriaType } from '@/types/database'
 
@@ -79,6 +80,8 @@ export default async function Home() {
       <Estrutura itens={itensEstrutura || undefined} />
 
       <Galeria fotos={galeriaFotos || undefined} />
+
+      <Depoimentos />
 
       <Precos pacotes={pacotes || undefined} horarioCheckout={config?.horario_checkout} />
 
