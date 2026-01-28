@@ -81,8 +81,8 @@ export default function Depoimentos() {
                                 <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center text-primary font-bold text-lg">
                                     {item.nome.charAt(0)}
                                 </div>
-                                <div>
-                                    <h4 className="font-bold text-text-main text-sm truncate w-[160px] md:w-auto">{item.nome}</h4>
+                                <div className="min-w-0 flex-1">
+                                    <h4 className="font-bold text-text-main text-sm truncate">{item.nome}</h4>
                                     <div className="flex text-yellow-500 scale-75 origin-left">
                                         {[...Array(5)].map((_, i) => (
                                             <span key={i} className="material-symbols-outlined text-[16px] fill-current">star</span>
