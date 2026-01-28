@@ -147,7 +147,7 @@ export default function AvisosAdmin() {
                                 className={`bg-white rounded-xl border p-6 ${ativo ? 'border-green-200' : 'border-gray-100 opacity-60'}`}
                             >
                                 <div className="flex items-start justify-between">
-                                    <div className="flex-1">
+                                    <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-3 mb-2">
                                             <span className={`px-3 py-1 rounded-full text-xs font-bold ${tipoInfo?.class}`}>
                                                 {tipoInfo?.label}
@@ -161,8 +161,8 @@ export default function AvisosAdmin() {
                                                 <span className="text-xs text-gray-400">Inativo</span>
                                             )}
                                         </div>
-                                        <h3 className="font-bold text-gray-900 text-lg mb-1">{aviso.titulo}</h3>
-                                        <p className="text-gray-600">{aviso.mensagem}</p>
+                                        <h3 className="font-bold text-gray-900 text-lg mb-1 break-words">{aviso.titulo}</h3>
+                                        <p className="text-gray-600 break-words whitespace-pre-wrap">{aviso.mensagem}</p>
                                         <div className="flex items-center gap-4 mt-3 text-sm text-gray-500">
                                             <span className="flex items-center gap-1">
                                                 <span className="material-symbols-outlined text-[16px]">calendar_today</span>
