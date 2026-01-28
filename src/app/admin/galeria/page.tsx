@@ -55,8 +55,15 @@ export default function GaleriaAdmin() {
 
         console.log('Arquivos selecionados:', files.length)
 
-        if (fotosSecao.length >= 8) {
-            alert('Limite de 8 fotos por seção atingido! Remova alguma para continuar.')
+        const maxFotos = (secaoAtiva === 'hero' || secaoAtiva === 'sobre') ? 1 : 8
+
+        if (fotosSecao.length >= maxFotos) {
+            alert(`Limite de ${maxFotos} foto(s) para esta seção atingido! Remova a foto atual para enviar uma nova.`)
+            return
+        }
+
+        if (files.length > maxFotos - fotosSecao.length) {
+            alert(`Você só pode enviar mais ${maxFotos - fotosSecao.length} foto(s) para esta seção.`)
             return
         }
 
@@ -198,7 +205,7 @@ export default function GaleriaAdmin() {
             <div className="bg-blue-50 border border-blue-100 rounded-lg p-3 mb-6 flex items-center gap-2">
                 <span className="material-symbols-outlined text-blue-600">info</span>
                 <span className="text-sm text-blue-800">
-                    <strong>{fotosSecao.length}/8</strong> fotos na seção. Máximo 5MB por imagem.
+                    <strong>{fotosSecao.length}/{(secaoAtiva === 'hero' || secaoAtiva === 'sobre') ? 1 : 8}</strong> fotos na seção. Máximo 5MB por imagem.
                 </span>
             </div>
 

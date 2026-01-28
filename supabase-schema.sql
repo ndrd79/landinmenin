@@ -74,7 +74,7 @@ CREATE TABLE IF NOT EXISTS galeria (
   url TEXT NOT NULL,
   alt TEXT DEFAULT '',
   ordem INT DEFAULT 0,
-  secao TEXT NOT NULL CHECK (secao IN ('hero', 'galeria', 'estrutura')),
+  secao TEXT NOT NULL CHECK (secao IN ('hero', 'galeria', 'estrutura', 'sobre')),
   ativo BOOLEAN DEFAULT TRUE,
   created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
