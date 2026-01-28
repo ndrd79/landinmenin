@@ -138,22 +138,22 @@ ALTER TABLE galeria ENABLE ROW LEVEL SECURITY;
 ALTER TABLE avisos ENABLE ROW LEVEL SECURITY;
 ALTER TABLE itens_estrutura ENABLE ROW LEVEL SECURITY;
 
--- Políticas de leitura pública (para o site)
-CREATE POLICY "Leitura pública configuracoes" ON configuracoes FOR SELECT USING (true);
-CREATE POLICY "Leitura pública pacotes" ON pacotes FOR SELECT USING (ativo = true);
-CREATE POLICY "Leitura pública calendario" ON calendario FOR SELECT USING (true);
-CREATE POLICY "Leitura pública galeria" ON galeria FOR SELECT USING (ativo = true);
-CREATE POLICY "Leitura pública avisos" ON avisos FOR SELECT USING (ativo = true);
-CREATE POLICY "Leitura pública itens_estrutura" ON itens_estrutura FOR SELECT USING (ativo = true);
+-- Políticas de leitura pública (Para visitantes - Role: anon)
+CREATE POLICY "Leitura pública configuracoes" ON configuracoes FOR SELECT TO anon USING (true);
+CREATE POLICY "Leitura pública pacotes" ON pacotes FOR SELECT TO anon USING (ativo = true);
+CREATE POLICY "Leitura pública calendario" ON calendario FOR SELECT TO anon USING (true);
+CREATE POLICY "Leitura pública galeria" ON galeria FOR SELECT TO anon USING (ativo = true);
+CREATE POLICY "Leitura pública avisos" ON avisos FOR SELECT TO anon USING (ativo = true);
+CREATE POLICY "Leitura pública itens_estrutura" ON itens_estrutura FOR SELECT TO anon USING (ativo = true);
 
--- Políticas de escrita para usuários autenticados (admin)
--- Otimizado com (SELECT auth.role()) para evitar re-execução por linha (Performance)
-CREATE POLICY "Escrita admin configuracoes" ON configuracoes FOR ALL USING ((SELECT auth.role()) = 'authenticated');
-CREATE POLICY "Escrita admin pacotes" ON pacotes FOR ALL USING ((SELECT auth.role()) = 'authenticated');
-CREATE POLICY "Escrita admin calendario" ON calendario FOR ALL USING ((SELECT auth.role()) = 'authenticated');
-CREATE POLICY "Escrita admin galeria" ON galeria FOR ALL USING ((SELECT auth.role()) = 'authenticated');
-CREATE POLICY "Escrita admin avisos" ON avisos FOR ALL USING ((SELECT auth.role()) = 'authenticated');
-CREATE POLICY "Escrita admin itens_estrutura" ON itens_estrutura FOR ALL USING ((SELECT auth.role()) = 'authenticated');
+-- Políticas de acesso total para Admin (Role: authenticated)
+-- Otimizado com (SELECT auth.role()) e isolamento de role para evitar avisos de performance
+CREATE POLICY "Escrita admin configuracoes" ON configuracoes FOR ALL TO authenticated USING ((SELECT auth.role()) = 'authenticated');
+CREATE POLICY "Escrita admin pacotes" ON pacotes FOR ALL TO authenticated USING ((SELECT auth.role()) = 'authenticated');
+CREATE POLICY "Escrita admin calendario" ON calendario FOR ALL TO authenticated USING ((SELECT auth.role()) = 'authenticated');
+CREATE POLICY "Escrita admin galeria" ON galeria FOR ALL TO authenticated USING ((SELECT auth.role()) = 'authenticated');
+CREATE POLICY "Escrita admin avisos" ON avisos FOR ALL TO authenticated USING ((SELECT auth.role()) = 'authenticated');
+CREATE POLICY "Escrita admin itens_estrutura" ON itens_estrutura FOR ALL TO authenticated USING ((SELECT auth.role()) = 'authenticated');
 
 -- =============================================
 -- STORAGE BUCKET (executar separadamente)
