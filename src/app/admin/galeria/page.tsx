@@ -10,7 +10,6 @@ const secoes = [
     { value: 'hero', label: 'Hero (Banner Principal)' },
     { value: 'sobre', label: 'Sobre Nós' },
     { value: 'galeria', label: 'Galeria' },
-    { value: 'estrutura', label: 'Estrutura' },
 ]
 
 export default function GaleriaAdmin() {
