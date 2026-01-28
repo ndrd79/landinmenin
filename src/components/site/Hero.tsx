@@ -10,12 +10,12 @@ export default function Hero({ imageUrl }: HeroProps) {
     const defaultImage = 'https://lh3.googleusercontent.com/aida-public/AB6AXuDXvR8TjfjpLN2F9zfuMHzVJO1D5bCU5dg6xJFG2_6FwmLJzqGKDJYzY0-vTHxfaFd4RV1_4lAOGvqME0K5VkYz5LquW2vHVbKqE_Ql'
 
     return (
-        <section className="relative min-h-screen flex items-center pt-12 pb-12 px-6 lg:px-20 overflow-hidden bg-background-light" id="inicio">
+        <section className="relative min-h-screen flex items-center pt-24 pb-12 px-6 lg:px-20 overflow-hidden bg-background-light" id="inicio">
             {/* Background Decorative Circles */}
             <div className="absolute top-0 right-0 w-[50%] h-[100%] bg-primary/5 rounded-full blur-3xl -mr-32 -mt-32 pointer-events-none" />
             <div className="absolute bottom-0 left-0 w-[30%] h-[50%] bg-secondary/5 rounded-full blur-3xl -ml-32 -mb-32 pointer-events-none" />
 
-            <div className="mx-auto max-w-[1280px] w-full relative z-10 pt-20 lg:pt-0">
+            <div className="mx-auto max-w-[1280px] w-full relative z-10 pt-16 lg:pt-0">
                 <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
                     {/* Text Content */}
                     <div className="relative order-2 lg:order-1">
