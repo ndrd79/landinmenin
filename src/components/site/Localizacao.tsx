@@ -15,7 +15,7 @@ export default function Localizacao() {
                         Nossa <span className="text-primary">Localização</span>
                     </h2>
                     <p className="text-lg text-text-muted max-w-2xl mx-auto">
-                        Estamos localizados em uma área de fácil acesso em Regente Feijó. Venha nos visitar!
+                        Estamos localizados em uma área de fácil acesso em Lucélia - SP. Venha nos visitar!
                     </p>
                 </div>
 
@@ -29,7 +29,7 @@ export default function Localizacao() {
                                     <h4 className="font-bold text-text-main">Endereço</h4>
                                 </div>
                                 <p className="text-text-muted leading-relaxed">
-                                    Regente Feijó - SP<br />
+                                    Lucélia - SP<br />
                                     A Estância Menin fica próxima ao centro da cidade, facilitando o seu deslocamento.
                                 </p>
                             </div>

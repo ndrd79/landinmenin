@@ -50,7 +50,7 @@ export default function Sobre({ imageUrl }: SobreProps) {
                                 do campo se encontra com o conforto necessário para momentos especiais.
                             </p>
                             <p>
-                                Localizada em Regente Feijó, nossa chácara é o resultado de anos de dedicação
+                                Localizada em Lucélia - SP, nossa chácara é o resultado de anos de dedicação
                                 para transformar um pedaço de terra em um verdadeiro santuário de lazer
                                 e confraternização.
                             </p>
@@ -83,7 +83,7 @@ export default function Sobre({ imageUrl }: SobreProps) {
                             <div className="relative rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/10 aspect-[4/3] bg-gray-100">
                                 <img
                                     src={imageUrl || defaultImage}
-                                    alt="Área externa da Estância Menin em Regente Feijó"
+                                    alt="Área externa da Estância Menin em Lucélia"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                     loading="lazy"
                                 />

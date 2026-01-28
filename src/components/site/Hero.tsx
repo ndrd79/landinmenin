@@ -32,7 +32,7 @@ export default function Hero({ imageUrl }: HeroProps) {
                                     <path d="M0,8 Q50,0 100,8 T200,8" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
                                 </svg>
                             </span>
-                            {' '}em <span className="text-secondary-dark">Regente Feijó</span>
+                            {' '}em <span className="text-secondary-dark">Lucélia - SP</span>
                         </h1>
 
                         {/* Description */}
@@ -106,7 +106,7 @@ export default function Hero({ imageUrl }: HeroProps) {
                             >
                                 <img
                                     src={imageUrl || defaultImage}
-                                    alt="Estância Menin - Piscina e Área de Lazer em Regente Feijó"
+                                    alt="Estância Menin - Piscina e Área de Lazer em Lucélia"
                                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                 />
                                 {/* Gradient Overlay */}
