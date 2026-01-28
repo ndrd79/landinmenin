@@ -68,6 +68,9 @@ export default async function Home() {
     ?.filter((f: GaleriaType) => f.secao === 'sobre' && f.ativo)
     ?.sort((a, b) => b.ordem - a.ordem)[0]?.url
   const galeriaFotos = (fotos as GaleriaType[] | null)?.filter((f: GaleriaType) => f.secao === 'galeria' && f.ativo)
+  const displayItensEstrutura = (itensEstrutura as any[] | null)
+    ?.filter(item => item.ativo)
+    ?.slice(0, 8)
 
   return (
     <main className="min-h-screen">
@@ -78,7 +81,7 @@ export default async function Home() {
 
       <Sobre imageUrl={sobreImage} />
 
-      <Estrutura itens={itensEstrutura || undefined} />
+      <Estrutura itens={displayItensEstrutura || undefined} />
 
       <Galeria fotos={galeriaFotos || undefined} />
 

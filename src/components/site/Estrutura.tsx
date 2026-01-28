@@ -83,7 +83,7 @@ export default function Estrutura({ itens }: EstruturaProps) {
                 </div>
 
                 {/* Grid of Items */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
                     {displayItens.map((item, index) => (
                         <div
                             key={item.id}
