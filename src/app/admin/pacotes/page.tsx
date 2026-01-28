@@ -291,7 +291,7 @@ export default function PacotesAdmin() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-1">Cor do Badge</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-1">Cor do título</label>
                                     <select
                                         value={formData.cor_badge}
                                         onChange={(e) => setFormData({ ...formData, cor_badge: e.target.value })}
