@@ -21,6 +21,28 @@ export default function CalendarioAdmin() {
     const [selectedDate, setSelectedDate] = useState<string | null>(null)
     const [modalOpen, setModalOpen] = useState(false)
     const [eventos, setEventos] = useState<Calendario[]>([])
+    const [touchStart, setTouchStart] = useState<number | null>(null)
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (touchStart === null) return
+        const touchEnd = e.changedTouches[0].clientX
+        const distance = touchStart - touchEnd
+
+        // Swipe threshold (50px)
+        if (distance > 50) {
+            // Swipe left -> Next Month
+            setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1))
+        } else if (distance < -50) {
+            // Swipe right -> Previous Month
+            setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))
+        }
+
+        setTouchStart(null)
+    }
     const [formData, setFormData] = useState({
         status: 'disponivel' as StatusCalendario,
         preco_especial: '',
@@ -121,7 +143,11 @@ export default function CalendarioAdmin() {
                 </div>
             </div>
 
-            <div className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 overflow-x-auto">
+            <div
+                className="bg-white rounded-xl border border-gray-100 shadow-sm p-6 overflow-x-auto"
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+            >
                 <div className="flex items-center justify-between mb-6 min-w-[300px]">
                     <button onClick={() => setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1))} className="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                         <span className="material-symbols-outlined">chevron_left</span>

@@ -16,6 +16,28 @@ interface CalendarioProps {
 export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
     const [currentDate, setCurrentDate] = useState(new Date())
     const [showModal, setShowModal] = useState<{ date: string, text: string } | null>(null)
+    const [touchStart, setTouchStart] = useState<number | null>(null)
+
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setTouchStart(e.targetTouches[0].clientX)
+    }
+
+    const handleTouchEnd = (e: React.TouchEvent) => {
+        if (touchStart === null) return
+        const touchEnd = e.changedTouches[0].clientX
+        const distance = touchStart - touchEnd
+
+        // Swipe threshold (50px)
+        if (distance > 50) {
+            // Swipe left -> Next Month
+            setCurrentDate(new Date(year, month + 1))
+        } else if (distance < -50) {
+            // Swipe right -> Previous Month
+            setCurrentDate(new Date(year, month - 1))
+        }
+
+        setTouchStart(null)
+    }
 
     const daysInMonth = (year: number, month: number) => new Date(year, month + 1, 0).getDate()
     const firstDayOfMonth = (year: number, month: number) => new Date(year, month, 1).getDay()
@@ -93,7 +115,11 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
 
                 <div className="grid lg:grid-cols-2 gap-12 items-stretch">
                     {/* Calendar Container */}
-                    <div className="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-primary/10 relative h-full flex flex-col">
+                    <div
+                        className="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-primary/10 relative h-full flex flex-col"
+                        onTouchStart={handleTouchStart}
+                        onTouchEnd={handleTouchEnd}
+                    >
                         {/* Status Modal - Small Alert inside calendar area */}
                         {showModal && (
                             <div className="absolute inset-0 z-20 flex items-center justify-center p-6 bg-white/60 backdrop-blur-sm rounded-3xl">
