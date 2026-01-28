@@ -99,7 +99,7 @@ export default function Header({ whatsapp }: HeaderProps) {
                     {/* Mobile Menu Button */}
                     <button
                         onClick={() => setMobileMenuOpen(true)}
-                        className="lg:hidden p-2 text-text-main hover:bg-primary/5 rounded-lg transition-colors cursor-pointer"
+                        className="lg:hidden p-3 -mr-2 text-text-main hover:bg-primary/5 rounded-xl transition-all cursor-pointer active:scale-95"
                         aria-label="Abrir menu"
                     >
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +125,7 @@ export default function Header({ whatsapp }: HeaderProps) {
                             <span className="text-lg font-bold text-text-main">Menu</span>
                             <button
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="p-2 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+                                className="p-3 -mr-2 hover:bg-gray-100 rounded-xl transition-all cursor-pointer active:scale-95"
                                 aria-label="Fechar menu"
                             >
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -141,7 +141,7 @@ export default function Header({ whatsapp }: HeaderProps) {
                                     key={item.href}
                                     href={item.href}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="flex items-center px-4 py-4 text-base font-medium text-text-main hover:bg-primary/5 hover:text-primary rounded-xl transition-all cursor-pointer border-b border-gray-50"
+                                    className="flex items-center px-4 min-h-[56px] text-base font-medium text-text-main hover:bg-primary/5 hover:text-primary rounded-xl transition-all cursor-pointer border-b border-gray-50"
                                 >
                                     {item.label}
                                 </a>
@@ -149,7 +149,7 @@ export default function Header({ whatsapp }: HeaderProps) {
                             <Link
                                 href="/faq"
                                 onClick={() => setMobileMenuOpen(false)}
-                                className="flex items-center px-4 py-4 text-base font-medium text-text-main hover:bg-primary/5 hover:text-primary rounded-xl transition-all cursor-pointer"
+                                className="flex items-center px-4 min-h-[56px] text-base font-medium text-text-main hover:bg-primary/5 hover:text-primary rounded-xl transition-all cursor-pointer"
                             >
                                 FAQ
                             </Link>

@@ -10,7 +10,7 @@ export default function WhatsAppFloat({ whatsapp }: WhatsAppFloatProps) {
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
-            className="group fixed bottom-6 right-6 z-50 flex items-center cursor-pointer"
+            className="group fixed bottom-6 right-6 z-50 flex items-center cursor-pointer active:scale-95 transition-all"
             aria-label="Entrar em contato pelo WhatsApp"
         >
             {/* Tooltip */}

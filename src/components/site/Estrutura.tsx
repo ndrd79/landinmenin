@@ -87,7 +87,7 @@ export default function Estrutura({ itens }: EstruturaProps) {
                     {displayItens.map((item, index) => (
                         <div
                             key={item.id}
-                            className="group relative bg-gradient-to-br from-background-warm to-white p-6 rounded-2xl border border-primary/10 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 transition-all duration-300 cursor-pointer"
+                            className="group relative bg-gradient-to-br from-background-warm to-white p-6 rounded-2xl border border-primary/10 hover:border-primary/30 hover:shadow-xl hover:shadow-primary/10 hover:-translate-y-1 active:scale-95 transition-all duration-300 cursor-pointer"
                             style={{ animationDelay: `${index * 100}ms` }}
                         >
                             {/* Icon */}

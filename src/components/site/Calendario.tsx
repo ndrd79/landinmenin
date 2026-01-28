@@ -54,7 +54,7 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
                         setShowModal({ date: dateStr, text: agendamento.observacao });
                     }
                 }}
-                className={`aspect-square flex flex-col items-center justify-center rounded-2xl text-sm font-semibold transition-all relative cursor-pointer border ${statusClass}`}
+                className={`aspect-square min-h-[44px] flex flex-col items-center justify-center rounded-2xl text-sm font-semibold transition-all relative cursor-pointer border active:scale-90 ${statusClass}`}
             >
                 {day}
                 {status === 'promocao' && (
@@ -117,14 +117,14 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
 
                         {/* Month Navigation */}
                         <div className="flex items-center justify-between mb-8">
-                            <button onClick={() => setCurrentDate(new Date(year, month - 1))} className="w-10 h-10 flex items-center justify-center hover:bg-primary/10 rounded-xl transition-colors">
-                                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button onClick={() => setCurrentDate(new Date(year, month - 1))} className="w-12 h-12 flex items-center justify-center hover:bg-primary/10 rounded-xl transition-all active:scale-90">
+                                <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                                 </svg>
                             </button>
                             <h3 className="text-xl font-bold text-text-main">{monthNames[month]} {year}</h3>
-                            <button onClick={() => setCurrentDate(new Date(year, month + 1))} className="w-10 h-10 flex items-center justify-center hover:bg-primary/10 rounded-xl transition-colors">
-                                <svg className="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <button onClick={() => setCurrentDate(new Date(year, month + 1))} className="w-12 h-12 flex items-center justify-center hover:bg-primary/10 rounded-xl transition-all active:scale-90">
+                                <svg className="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                 </svg>
                             </button>

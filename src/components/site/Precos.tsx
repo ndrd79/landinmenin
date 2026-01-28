@@ -90,8 +90,8 @@ export default function Precos({ pacotes, horarioCheckout }: PrecosProps) {
 
                 {/* Pricing Cards - Single Line */}
                 <div className={`grid gap-8 items-stretch pt-4 ${displayPacotes.length === 1 ? 'max-w-md mx-auto' :
-                        displayPacotes.length === 2 ? 'max-w-3xl mx-auto md:grid-cols-2' :
-                            'max-w-[1200px] mx-auto md:grid-cols-3'
+                    displayPacotes.length === 2 ? 'max-w-3xl mx-auto md:grid-cols-2' :
+                        'max-w-[1200px] mx-auto md:grid-cols-3'
                     }`}>
                     {displayPacotes.map((pacote) => {
                         const itens = getItens(pacote)
@@ -156,7 +156,7 @@ export default function Precos({ pacotes, horarioCheckout }: PrecosProps) {
                                         href={`https://wa.me/5518997473445?text=Olá! Tenho interesse no pacote ${pacote.titulo || pacote.nome} - R$ ${Number(pacote.preco).toLocaleString('pt-BR')}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className={`flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-semibold transition-all duration-300 cursor-pointer ${pacote.destaque
+                                        className={`flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-semibold transition-all duration-300 cursor-pointer active:scale-95 ${pacote.destaque
                                             ? 'bg-white text-primary hover:bg-white/90 shadow-lg'
                                             : 'bg-primary text-white hover:bg-primary-dark shadow-md shadow-primary/20'
                                             }`}
