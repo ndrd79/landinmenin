@@ -59,8 +59,10 @@ export default async function Home() {
     // Continue with default values
   }
 
-  const heroImage = (fotos as GaleriaType[] | null)?.find((f: GaleriaType) => f.secao === 'hero')?.url
-  const galeriaFotos = (fotos as GaleriaType[] | null)?.filter((f: GaleriaType) => f.secao === 'galeria')
+  const heroImage = (fotos as GaleriaType[] | null)
+    ?.filter((f: GaleriaType) => f.secao === 'hero' && f.ativo)
+    ?.sort((a, b) => b.ordem - a.ordem)[0]?.url
+  const galeriaFotos = (fotos as GaleriaType[] | null)?.filter((f: GaleriaType) => f.secao === 'galeria' && f.ativo)
 
   return (
     <main className="min-h-screen">

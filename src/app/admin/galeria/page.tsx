@@ -25,13 +25,25 @@ export default function GaleriaAdmin() {
     }, [])
 
     const loadFotos = async () => {
-        const { data } = await supabase
-            .from('galeria')
-            .select('*')
-            .order('ordem', { ascending: true })
+        try {
+            console.log('Carregando fotos...')
+            const { data, error } = await supabase
+                .from('galeria')
+                .select('*')
+                .order('ordem', { ascending: true })
 
-        if (data) {
-            setFotos(data)
+            if (error) {
+                console.error('Erro ao buscar fotos:', error)
+                alert(`Erro ao carregar fotos: ${error.message}`)
+                return
+            }
+
+            console.log('Fotos carregadas:', data?.length)
+            if (data) {
+                setFotos(data)
+            }
+        } catch (err) {
+            console.error('Erro inesperado no loadFotos:', err)
         }
     }
 
@@ -41,11 +53,14 @@ export default function GaleriaAdmin() {
         const files = e.target.files
         if (!files || files.length === 0) return
 
+        console.log('Arquivos selecionados:', files.length)
+
         if (fotosSecao.length >= 8) {
-            alert('Limite de 8 fotos por seção atingido!')
+            alert('Limite de 8 fotos por seção atingido! Remova alguma para continuar.')
             return
         }
 
+        alert(`Iniciando o envio de ${files.length} foto(s). Por favor, aguarde...`)
         setUploading(true)
         let successCount = 0
         let failCount = 0
