@@ -103,13 +103,13 @@ export default async function FAQPage() {
             <Header whatsapp={config?.whatsapp} />
 
             {/* Page Title */}
-            <section className="bg-primary-dark px-6 py-16 lg:px-20 text-white relative overflow-hidden">
+            <section className="bg-primary-dark px-6 pt-24 pb-16 lg:px-20 text-white relative overflow-hidden">
                 <div
                     className="absolute inset-0 opacity-10"
                     style={{ backgroundImage: 'radial-gradient(#4a7c23 1px, transparent 1px)', backgroundSize: '32px 32px' }}
                 />
                 <div className="mx-auto max-w-[900px] relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white mb-4 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white mb-8 backdrop-blur-sm">
                         <span className="material-symbols-outlined text-[18px]">help</span>
                         Dúvidas Frequentes
                     </div>
@@ -123,8 +123,8 @@ export default async function FAQPage() {
                 <div className="mx-auto max-w-[900px]">
                     <div className="space-y-4">
                         {faqItems.map((item, index) => (
-                            <details key={index} className="faq-item group" open={index === 0}>
-                                <summary className="faq-summary list-none cursor-pointer flex items-center p-6 bg-white rounded-2xl border border-primary/10 shadow-sm hover:border-primary/30 transition-all group-open:rounded-b-none group-open:border-b-0">
+                            <details key={index} className="faq-item group bg-white rounded-3xl border border-primary/10 shadow-sm hover:border-primary/30 transition-all overflow-hidden" open={index === 0}>
+                                <summary className="faq-summary list-none cursor-pointer flex items-center p-6 transition-all">
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center mr-4 ${item.variant === 'red' ? 'bg-red-50 text-red-500' : 'bg-primary/10 text-primary'}`}>
                                         <span className="material-symbols-outlined text-[20px]">
                                             {item.icon}
@@ -133,19 +133,21 @@ export default async function FAQPage() {
                                     <span className="flex-1 font-bold text-text-main text-lg">{item.question}</span>
                                     <span className="material-symbols-outlined faq-icon text-primary transition-transform group-open:rotate-180">expand_more</span>
                                 </summary>
-                                <div className="faq-content p-6 pt-2 bg-white rounded-b-2xl border-x border-b border-primary/10">
-                                    <p className="text-text-muted leading-relaxed whitespace-pre-line">{item.answer}</p>
-                                    {item.link && (
-                                        <a
-                                            href={item.link.url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-bold mt-4"
-                                        >
-                                            <span className="material-symbols-outlined text-[18px]">map</span>
-                                            {item.link.text}
-                                        </a>
-                                    )}
+                                <div className="faq-content p-6 pt-0 border-t border-primary/5">
+                                    <div className="pt-4">
+                                        <p className="text-text-muted leading-relaxed whitespace-pre-line">{item.answer}</p>
+                                        {item.link && (
+                                            <a
+                                                href={item.link.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-flex items-center gap-2 text-primary hover:text-primary-dark font-bold mt-4"
+                                            >
+                                                <span className="material-symbols-outlined text-[18px]">map</span>
+                                                {item.link.text}
+                                            </a>
+                                        )}
+                                    </div>
                                 </div>
                             </details>
                         ))}
