@@ -24,11 +24,11 @@ export default function AdminDashboard() {
     }
 
     return (
-        <div className="p-8">
+        <div className="p-4 lg:p-8">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
-                <p className="text-gray-500">Bem-vindo(a) de volta{userEmail ? `, ${userEmail}` : ''}</p>
+                <p className="text-gray-500 text-sm">Bem-vindo(a) de volta{userEmail ? `, ${userEmail}` : ''}</p>
             </div>
 
             {/* Cards de Estatísticas */}

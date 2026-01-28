@@ -60,18 +60,18 @@ export default function ConfiguracoesAdmin() {
 
     if (loading) {
         return (
-            <div className="p-8 flex items-center justify-center">
+            <div className="p-4 lg:p-8 flex items-center justify-center">
                 <div className="animate-spin h-8 w-8 border-4 border-green-500 border-t-transparent rounded-full"></div>
             </div>
         )
     }
 
     return (
-        <div className="p-8">
+        <div className="p-4 lg:p-8">
             {/* Header */}
             <div className="mb-8">
                 <h1 className="text-2xl font-bold text-gray-900">Configurações</h1>
-                <p className="text-gray-500">Configurações gerais do site</p>
+                <p className="text-gray-500 text-sm">Configurações gerais do site</p>
             </div>
 
             {/* Mensagem */}

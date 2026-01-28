@@ -158,16 +158,16 @@ export default function GaleriaAdmin() {
     }
 
     return (
-        <div className="p-8">
+        <div className="p-4 lg:p-8">
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Galeria</h1>
-                    <p className="text-gray-500">Gerencie as fotos do site</p>
+                    <p className="text-gray-500 text-sm">Gerencie as fotos do site</p>
                 </div>
-                <label className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors cursor-pointer">
+                <label className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-colors shadow-sm cursor-pointer w-full sm:w-auto">
                     <span className="material-symbols-outlined text-[20px]">upload</span>
-                    {uploading ? 'Enviando...' : 'Upload'}
+                    <span className="font-bold">{uploading ? 'Enviando...' : 'Upload'}</span>
                     <input
                         type="file"
                         accept="image/*"
@@ -180,12 +180,12 @@ export default function GaleriaAdmin() {
             </div>
 
             {/* Tabs de seção */}
-            <div className="flex gap-2 mb-6">
+            <div className="flex gap-2 mb-6 overflow-x-auto pb-2 scrollbar-hide">
                 {secoes.map(secao => (
                     <button
                         key={secao.value}
                         onClick={() => setSecaoAtiva(secao.value as typeof secaoAtiva)}
-                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${secaoAtiva === secao.value
+                        className={`px-4 py-2 rounded-lg font-medium transition-colors whitespace-nowrap text-sm ${secaoAtiva === secao.value
                             ? 'bg-green-600 text-white'
                             : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
                             }`}

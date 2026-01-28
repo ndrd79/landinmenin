@@ -1,5 +1,6 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
 import { createClient } from '@/lib/supabase/client'
@@ -20,9 +21,15 @@ export default function AdminLayout({
 }: {
     children: React.ReactNode
 }) {
+    const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
     const pathname = usePathname()
     const router = useRouter()
     const supabase = createClient()
+
+    // Fechar menu mobile ao trocar de rota
+    useEffect(() => {
+        setIsMobileMenuOpen(false)
+    }, [pathname])
 
     // Não renderizar sidebar na página de login
     if (pathname === '/admin/login') {
@@ -36,11 +43,40 @@ export default function AdminLayout({
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 flex">
+        <div className="min-h-screen bg-gray-50 flex flex-col lg:flex-row h-screen overflow-hidden">
+            {/* Mobile Header */}
+            <header className="lg:hidden bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between sticky top-0 z-40">
+                <div className="flex items-center gap-2">
+                    <div className="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                        <span className="material-symbols-outlined text-green-600 text-[18px]">nature_people</span>
+                    </div>
+                    <span className="font-bold text-gray-900 text-sm">Estância Menin</span>
+                </div>
+                <button
+                    onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                    className="p-2 text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
+                >
+                    <span className="material-symbols-outlined">{isMobileMenuOpen ? 'close' : 'menu'}</span>
+                </button>
+            </header>
+
+            {/* Overlay Mobile */}
+            {isMobileMenuOpen && (
+                <div
+                    className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                />
+            )}
+
             {/* Sidebar */}
-            <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
-                {/* Logo */}
-                <div className="p-6 border-b border-gray-100">
+            <aside
+                className={`
+                    fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 flex flex-col transition-transform duration-300 lg:static lg:translate-x-0
+                    ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}
+                `}
+            >
+                {/* Logo Section (Desktop) */}
+                <div className="p-6 border-b border-gray-100 hidden lg:block">
                     <div className="flex items-center gap-3">
                         <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
                             <span className="material-symbols-outlined text-green-600">nature_people</span>
@@ -52,8 +88,16 @@ export default function AdminLayout({
                     </div>
                 </div>
 
+                {/* Mobile Sidebar Close (only on mobile) */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-100 lg:hidden">
+                    <span className="font-bold text-gray-900">Menu</span>
+                    <button onClick={() => setIsMobileMenuOpen(false)}>
+                        <span className="material-symbols-outlined text-gray-400">close</span>
+                    </button>
+                </div>
+
                 {/* Menu */}
-                <nav className="flex-1 p-4">
+                <nav className="flex-1 p-4 overflow-y-auto">
                     <ul className="space-y-1">
                         {menuItems.map((item) => {
                             const isActive = pathname === item.href
@@ -96,7 +140,7 @@ export default function AdminLayout({
             </aside>
 
             {/* Conteúdo Principal */}
-            <main className="flex-1 overflow-auto">
+            <main className="flex-1 overflow-auto bg-gray-50">
                 {children}
             </main>
         </div>

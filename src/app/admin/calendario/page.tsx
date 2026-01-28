@@ -113,11 +113,11 @@ export default function CalendarioAdmin() {
     }
 
     return (
-        <div className="p-8">
-            <div className="flex items-center justify-between mb-8">
+        <div className="p-4 lg:p-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Calendário Admin</h1>
-                    <p className="text-gray-500">Gerencie preços e avisos de promoção</p>
+                    <p className="text-gray-500 text-sm">Gerencie preços e avisos de promoção</p>
                 </div>
             </div>
 

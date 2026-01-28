@@ -118,16 +118,16 @@ export default function AvisosAdmin() {
     }
 
     return (
-        <div className="p-8">
+        <div className="p-4 lg:p-8">
             {/* Header */}
-            <div className="flex items-center justify-between mb-8">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-8 gap-4">
                 <div>
                     <h1 className="text-2xl font-bold text-gray-900">Avisos</h1>
-                    <p className="text-gray-500">Crie banners e avisos para o site</p>
+                    <p className="text-gray-500 text-sm">Crie banners e avisos para o site</p>
                 </div>
                 <button
                     onClick={handleNew}
-                    className="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                    className="flex items-center justify-center gap-2 bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition-colors shadow-sm"
                 >
                     <span className="material-symbols-outlined text-[20px]">add</span>
                     Novo Aviso
