@@ -125,14 +125,16 @@ export default function Precos({ pacotes, horarioCheckout }: PrecosProps) {
                                     </p>
 
                                     {/* Price */}
-                                    <div className="mb-6">
-                                        <div className="flex items-baseline gap-1">
-                                            <span className={`text-sm ${pacote.destaque ? 'text-white/60' : 'text-text-muted'}`}>R$</span>
-                                            <span className={`text-5xl font-bold ${pacote.destaque ? 'text-white' : 'text-primary'}`}>
-                                                {Number(pacote.preco).toLocaleString('pt-BR')}
-                                            </span>
+                                    {Number(pacote.preco) > 0 && (
+                                        <div className="mb-6">
+                                            <div className="flex items-baseline gap-1">
+                                                <span className={`text-sm ${pacote.destaque ? 'text-white/60' : 'text-text-muted'}`}>R$</span>
+                                                <span className={`text-5xl font-bold ${pacote.destaque ? 'text-white' : 'text-primary'}`}>
+                                                    {Number(pacote.preco).toLocaleString('pt-BR')}
+                                                </span>
+                                            </div>
                                         </div>
-                                    </div>
+                                    )}
 
                                     {/* Features */}
                                     <ul className="flex-1 space-y-3 mb-8">
@@ -153,7 +155,7 @@ export default function Precos({ pacotes, horarioCheckout }: PrecosProps) {
 
                                     {/* CTA Button */}
                                     <a
-                                        href={`https://wa.me/5518997473445?text=Olá! Tenho interesse no pacote ${pacote.titulo || pacote.nome} - R$ ${Number(pacote.preco).toLocaleString('pt-BR')}`}
+                                        href={`https://wa.me/5518997473445?text=Olá! Tenho interesse no pacote ${pacote.titulo || pacote.nome}${Number(pacote.preco) > 0 ? ` - R$ ${Number(pacote.preco).toLocaleString('pt-BR')}` : ''}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className={`flex items-center justify-center gap-2 w-full py-4 rounded-2xl font-semibold transition-all duration-300 cursor-pointer active:scale-95 ${pacote.destaque

@@ -194,7 +194,11 @@ export default function PacotesAdmin() {
                         </span>
                         <h3 className="text-lg font-bold text-gray-900 mb-1">{pacote.titulo}</h3>
                         <p className="text-sm text-gray-500 mb-3">{pacote.descricao}</p>
-                        <p className="text-2xl font-bold text-green-600 mb-4">R$ {pacote.preco}</p>
+                        {Number(pacote.preco) > 0 ? (
+                            <p className="text-2xl font-bold text-green-600 mb-4">R$ {pacote.preco}</p>
+                        ) : (
+                            <p className="text-sm font-bold text-gray-400 mb-4 italic">Preço oculto</p>
+                        )}
                         <div className="flex gap-2">
                             <button
                                 onClick={() => handleEdit(pacote)}
@@ -289,6 +293,7 @@ export default function PacotesAdmin() {
                                         className="w-full px-4 py-2 border border-gray-300 rounded-lg"
                                         placeholder="550"
                                     />
+                                    <p className="text-[10px] text-gray-400 mt-1">Dica: Use 0 para não exibir preço.</p>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">Cor do título</label>
