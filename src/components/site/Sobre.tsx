@@ -117,17 +117,17 @@ export default function Sobre({ imageUrl }: SobreProps) {
                         {/* Decorative Elements */}
                         <div className="absolute -z-10 -top-6 -right-6 w-full h-full rounded-3xl bg-gradient-to-br from-primary/20 to-primary/10" />
 
-                        {/* Stats Card */}
-                        <div className="absolute -bottom-6 -left-6 bg-white rounded-2xl p-6 shadow-xl border border-primary/10">
-                            <div className="flex items-center gap-6">
+                        {/* Stats Card - Refined Size */}
+                        <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl border border-primary/10 transition-transform hover:scale-105 duration-300">
+                            <div className="flex items-center gap-4">
                                 <div className="text-center">
-                                    <span className="block text-3xl font-bold text-primary">10+</span>
-                                    <span className="text-xs text-text-muted">Anos de<br />experiência</span>
+                                    <span className="block text-2xl font-bold text-primary">10+</span>
+                                    <span className="text-[10px] text-text-muted leading-tight">Anos de<br />experiência</span>
                                 </div>
-                                <div className="w-px h-12 bg-gray-200" />
+                                <div className="w-px h-8 bg-gray-200" />
                                 <div className="text-center">
-                                    <span className="block text-3xl font-bold text-primary">100+</span>
-                                    <span className="text-xs text-text-muted">Famílias<br />atendidas</span>
+                                    <span className="block text-2xl font-bold text-primary">100+</span>
+                                    <span className="text-[10px] text-text-muted leading-tight">Famílias<br />atendidas</span>
                                 </div>
                             </div>
                         </div>
