@@ -100,9 +100,9 @@ export default function Hero({ imageUrl }: HeroProps) {
                     {/* Image */}
                     <div className="relative order-1 lg:order-2 px-4 md:px-0">
                         {/* Main Image with Smooth Organic Shape */}
-                        <div className="relative">
+                        <div className="relative group">
                             <div
-                                className="aspect-[4/3] w-full rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/10 group bg-gray-100 relative"
+                                className="aspect-[4/3] w-full rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/10 bg-gray-100 relative"
                             >
                                 <img
                                     src={imageUrl || defaultImage}
@@ -114,7 +114,7 @@ export default function Hero({ imageUrl }: HeroProps) {
                             </div>
 
                             {/* Floating Card - Top Right */}
-                            <div className="absolute -top-3 -right-2 sm:-top-4 sm:-right-4 flex items-center gap-2 sm:gap-3 bg-white rounded-2xl p-3 sm:p-4 shadow-xl border border-primary/10 animate-float scale-90 sm:scale-100 origin-right">
+                            <div className="absolute -top-3 -right-2 sm:-top-4 sm:-right-4 flex items-center gap-2 sm:gap-3 bg-white rounded-2xl p-3 sm:p-4 shadow-xl border border-primary/10 animate-float scale-90 sm:scale-100 origin-right z-20">
                                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center">
                                     <svg className="w-5 h-5 sm:w-6 sm:h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -127,7 +127,7 @@ export default function Hero({ imageUrl }: HeroProps) {
                             </div>
 
                             {/* Floating Card - Bottom Left */}
-                            <div className="absolute -bottom-3 -left-2 sm:-bottom-4 sm:-left-4 flex items-center gap-2 sm:gap-3 bg-white rounded-2xl p-3 sm:p-4 shadow-xl border border-primary/10 scale-90 sm:scale-100 origin-left" style={{ animationDelay: '0.5s' }}>
+                            <div className="absolute -bottom-3 -left-2 sm:-bottom-4 sm:-left-4 flex items-center gap-2 sm:gap-3 bg-white rounded-2xl p-3 sm:p-4 shadow-xl border border-primary/10 scale-90 sm:scale-100 origin-left z-20" style={{ animationDelay: '0.5s' }}>
                                 <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-accent/30 to-secondary/20 flex items-center justify-center">
                                     <svg className="w-5 h-5 sm:w-6 sm:h-6 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />

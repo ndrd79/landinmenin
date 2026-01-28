@@ -79,17 +79,19 @@ export default function Sobre({ imageUrl }: SobreProps) {
                     {/* Image Side */}
                     <div className="relative order-1 lg:order-2 px-4 md:px-0">
                         {/* Main Image */}
-                        <div className="relative rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/10 aspect-[4/3] bg-gray-100 group">
-                            <img
-                                src={imageUrl || defaultImage}
-                                alt="Área externa da Estância Menin em Regente Feijó"
-                                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                                loading="lazy"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-text-main/30 via-transparent to-transparent pointer-events-none" />
+                        <div className="relative group">
+                            <div className="relative rounded-[3rem] overflow-hidden shadow-2xl shadow-primary/10 aspect-[4/3] bg-gray-100">
+                                <img
+                                    src={imageUrl || defaultImage}
+                                    alt="Área externa da Estância Menin em Regente Feijó"
+                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    loading="lazy"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-text-main/30 via-transparent to-transparent pointer-events-none" />
+                            </div>
 
                             {/* Stats Card - Refined Size */}
-                            <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl border border-primary/10 transition-transform hover:scale-105 duration-300">
+                            <div className="absolute -bottom-4 -left-4 bg-white rounded-2xl p-4 shadow-xl border border-primary/10 transition-all hover:scale-105 duration-300 z-20">
                                 <div className="flex items-center gap-4">
                                     <div className="text-center">
                                         <span className="block text-2xl font-bold text-primary">10+</span>
