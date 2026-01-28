@@ -109,7 +109,7 @@ export default async function FAQPage() {
                     style={{ backgroundImage: 'radial-gradient(#4a7c23 1px, transparent 1px)', backgroundSize: '32px 32px' }}
                 />
                 <div className="mx-auto max-w-[900px] relative z-10 text-center">
-                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-primary-light mb-4 backdrop-blur-sm">
+                    <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-bold text-white mb-4 backdrop-blur-sm">
                         <span className="material-symbols-outlined text-[18px]">help</span>
                         Dúvidas Frequentes
                     </div>
