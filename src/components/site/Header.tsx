@@ -39,6 +39,7 @@ export default function Header({ whatsapp }: HeaderProps) {
         { href: '/#estrutura', label: 'Estrutura' },
         { href: '/#precos', label: 'Preços' },
         { href: '/#agenda', label: 'Agenda' },
+        { href: '/#localizacao', label: 'Localização' },
     ]
 
     return (

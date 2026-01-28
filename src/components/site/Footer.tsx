@@ -80,6 +80,7 @@ export default function Footer() {
                                 { href: '#estrutura', label: 'Estrutura' },
                                 { href: '#precos', label: 'Preços' },
                                 { href: '#agenda', label: 'Agenda' },
+                                { href: '#localizacao', label: 'Localização' },
                             ].map((link) => (
                                 <li key={link.href}>
                                     <a

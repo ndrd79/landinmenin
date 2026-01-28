@@ -13,6 +13,7 @@ import Footer from '@/components/site/Footer'
 import WhatsAppFloat from '@/components/site/WhatsAppFloat'
 import BannerAvisos from '@/components/site/BannerAvisos'
 import Depoimentos from '@/components/site/Depoimentos'
+import Localizacao from '@/components/site/Localizacao'
 
 import { Galeria as GaleriaType } from '@/types/database'
 
@@ -88,6 +89,8 @@ export default async function Home() {
       <Regras />
 
       <CalendarioSite agendamentos={agendamentos || []} />
+
+      <Localizacao />
 
       <Footer />
 
