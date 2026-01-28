@@ -124,7 +124,7 @@ export default async function FAQPage() {
                     <div className="space-y-4">
                         {faqItems.map((item, index) => (
                             <details key={index} className="faq-item group" open={index === 0}>
-                                <summary className="faq-summary list-none cursor-pointer flex items-center p-6 bg-white rounded-2xl border border-primary/10 shadow-sm hover:border-primary/30 transition-all group-open:rounded-b-none group-open:border-b-transparent">
+                                <summary className="faq-summary list-none cursor-pointer flex items-center p-6 bg-white rounded-2xl border border-primary/10 shadow-sm hover:border-primary/30 transition-all group-open:rounded-b-none group-open:border-b-transparent relative z-10">
                                     <div className={`w-10 h-10 rounded-xl flex items-center justify-center mr-4 ${item.variant === 'red' ? 'bg-red-50 text-red-500' : 'bg-primary/10 text-primary'}`}>
                                         <span className="material-symbols-outlined text-[20px]">
                                             {item.icon}
@@ -133,7 +133,7 @@ export default async function FAQPage() {
                                     <span className="flex-1 font-bold text-text-main text-lg">{item.question}</span>
                                     <span className="material-symbols-outlined faq-icon text-primary transition-transform group-open:rotate-180">expand_more</span>
                                 </summary>
-                                <div className="faq-content p-6 pt-2 bg-white rounded-b-2xl border-x border-b border-primary/10 -mt-px relative z-[-1]">
+                                <div className="faq-content p-6 pt-2 bg-white rounded-b-2xl border-x border-b border-primary/10 -mt-px relative z-0">
                                     <p className="text-text-muted leading-relaxed whitespace-pre-line">{item.answer}</p>
                                     {item.link && (
                                         <a
