@@ -91,9 +91,9 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
                     </p>
                 </div>
 
-                <div className="grid lg:grid-cols-2 gap-12 items-start">
+                <div className="grid lg:grid-cols-2 gap-12 items-stretch">
                     {/* Calendar Container */}
-                    <div className="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-primary/10 relative">
+                    <div className="bg-white p-6 md:p-8 rounded-3xl shadow-xl border border-primary/10 relative h-full flex flex-col">
                         {/* Status Modal - Small Alert inside calendar area */}
                         {showModal && (
                             <div className="absolute inset-0 z-20 flex items-center justify-center p-6 bg-white/60 backdrop-blur-sm rounded-3xl">
@@ -143,7 +143,7 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
                         </div>
 
                         {/* Legend */}
-                        <div className="flex flex-wrap gap-4 mt-8 pt-6 border-t border-primary/10 justify-center">
+                        <div className="flex flex-wrap gap-4 mt-auto pt-6 border-t border-primary/10 justify-center">
                             <div className="flex items-center gap-2">
                                 <div className="w-3 h-3 rounded-full bg-primary/20"></div>
                                 <span className="text-[10px] font-medium text-text-muted">Livre</span>
@@ -160,7 +160,7 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
                     </div>
 
                     {/* CTA Side */}
-                    <div className="flex flex-col gap-6">
+                    <div className="flex flex-col h-full justify-between gap-6">
                         <div className="bg-gradient-to-br from-primary-dark via-primary to-primary-light rounded-[2.5rem] p-8 md:p-10 text-white shadow-2xl relative overflow-hidden group">
                             {/* Decorative Background Elements */}
                             <div className="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16 blur-2xl" />
