@@ -177,11 +177,13 @@ export default function CalendarioSite({ agendamentos = [] }: CalendarioProps) {
                                     Clique no botão abaixo para falar conosco e garantir sua reserva.
                                 </p>
 
-                                {/* New Negotiation Note */}
-                                <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4 mb-8 border border-white/20 flex items-center gap-3">
-                                    <span className="material-symbols-outlined text-accent text-[20px]">handshake</span>
-                                    <p className="text-xs sm:text-sm font-medium">
-                                        Para mais de uma diária, <span className="text-accent underline font-bold">negocie diretamente</span> com o proprietário!
+                                {/* New Negotiation Note - High Visibility */}
+                                <div className="bg-white/20 backdrop-blur-md rounded-2xl p-5 mb-8 border border-white/30 flex items-center gap-4 shadow-sm">
+                                    <div className="w-10 h-10 rounded-full bg-yellow-400 flex items-center justify-center flex-shrink-0 shadow-lg">
+                                        <span className="material-symbols-outlined text-primary-dark text-[24px]">handshake</span>
+                                    </div>
+                                    <p className="text-sm sm:text-base font-semibold text-white leading-snug">
+                                        Para mais de uma diária, <span className="text-yellow-400 underline decoration-2 underline-offset-4">negocie diretamente</span> com o proprietário!
                                     </p>
                                 </div>
 
