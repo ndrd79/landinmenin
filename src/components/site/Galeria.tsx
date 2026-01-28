@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-
 import { Galeria as GaleriaType } from '@/types/database'
 
 interface GaleriaProps {
@@ -51,7 +50,7 @@ export default function Galeria({ fotos }: GaleriaProps) {
 
                 {/* Photo Grid - Refined Masonry */}
                 <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
-                    {displayFotos.map((foto, index) => (
+                    {displayFotos.map((foto) => (
                         <div
                             key={foto.id}
                             onClick={() => setSelectedImage(foto.url)}
@@ -76,7 +75,7 @@ export default function Galeria({ fotos }: GaleriaProps) {
                 {/* CTA */}
                 <div className="mt-12 text-center">
                     <a
-                        href="https://wa.me/5518997473445?text=Olá! Gostaria de ver mais fotos da Estância Menin."
+                        href="https://www.instagram.com/estancia_menin?igshid=MWRjMHRwcjB4MnoxaA%3D%3D"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-4 transition-all duration-300 cursor-pointer"
