@@ -62,6 +62,9 @@ export default async function Home() {
   const heroImage = (fotos as GaleriaType[] | null)
     ?.filter((f: GaleriaType) => f.secao === 'hero' && f.ativo)
     ?.sort((a, b) => b.ordem - a.ordem)[0]?.url
+  const sobreImage = (fotos as GaleriaType[] | null)
+    ?.filter((f: GaleriaType) => f.secao === 'sobre' && f.ativo)
+    ?.sort((a, b) => b.ordem - a.ordem)[0]?.url
   const galeriaFotos = (fotos as GaleriaType[] | null)?.filter((f: GaleriaType) => f.secao === 'galeria' && f.ativo)
 
   return (
@@ -71,7 +74,7 @@ export default async function Home() {
 
       <Hero imageUrl={heroImage} />
 
-      <Sobre />
+      <Sobre imageUrl={sobreImage} />
 
       <Estrutura itens={itensEstrutura || undefined} />
 

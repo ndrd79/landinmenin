@@ -42,7 +42,7 @@ export interface Galeria {
     url: string
     alt: string
     ordem: number
-    secao: 'hero' | 'galeria' | 'estrutura'
+    secao: 'hero' | 'galeria' | 'estrutura' | 'sobre'
     ativo: boolean
     created_at: string
 }

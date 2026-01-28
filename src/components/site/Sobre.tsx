@@ -1,4 +1,9 @@
-export default function Sobre() {
+interface SobreProps {
+    imageUrl?: string
+}
+
+export default function Sobre({ imageUrl }: SobreProps) {
+    const defaultImage = "https://lh3.googleusercontent.com/aida-public/AB6AXuDXvR8TjfjpLN2F9zfuMHzVJO1D5bCU5dg6xJFG2_6FwmLJzqGKDJYzY0-vTHxfaFd4RV1_4lAOGvqME0K5VkYz5LquW2vHVbKqE_Ql"
     const destaques = [
         {
             icon: (
@@ -102,7 +107,7 @@ export default function Sobre() {
                         {/* Main Image */}
                         <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-primary/10">
                             <img
-                                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXvR8TjfjpLN2F9zfuMHzVJO1D5bCU5dg6xJFG2_6FwmLJzqGKDJYzY0-vTHxfaFd4RV1_4lAOGvqME0K5VkYz5LquW2vHVbKqE_Ql"
+                                src={imageUrl || defaultImage}
                                 alt="Área externa da Estância Menin"
                                 className="w-full aspect-[4/3] object-cover"
                             />

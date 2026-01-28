@@ -8,13 +8,14 @@ import type { Galeria } from '@/types/database'
 
 const secoes = [
     { value: 'hero', label: 'Hero (Banner Principal)' },
+    { value: 'sobre', label: 'Sobre Nós' },
     { value: 'galeria', label: 'Galeria' },
     { value: 'estrutura', label: 'Estrutura' },
 ]
 
 export default function GaleriaAdmin() {
     const [fotos, setFotos] = useState<Galeria[]>([])
-    const [secaoAtiva, setSecaoAtiva] = useState<'hero' | 'galeria' | 'estrutura'>('galeria')
+    const [secaoAtiva, setSecaoAtiva] = useState<'hero' | 'galeria' | 'estrutura' | 'sobre'>('galeria')
     const [uploading, setUploading] = useState(false)
     const [editingFoto, setEditingFoto] = useState<Galeria | null>(null)
 
