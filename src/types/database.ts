@@ -64,6 +64,7 @@ export interface ItemEstrutura {
     id: string
     nome: string
     icone: string
+    descricao: string
     ativo: boolean
     ordem: number
 }

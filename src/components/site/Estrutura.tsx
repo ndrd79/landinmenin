@@ -92,14 +92,16 @@ export default function Estrutura({ itens }: EstruturaProps) {
                         >
                             {/* Icon */}
                             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary/10 to-primary/5 flex items-center justify-center text-primary mb-4 group-hover:from-primary group-hover:to-primary-light group-hover:text-white transition-all duration-300 mx-auto">
-                                {iconMap[item.icone] || iconMap['park']}
+                                <span className="material-symbols-outlined text-[32px]">
+                                    {item.icone || 'park'}
+                                </span>
                             </div>
 
                             {/* Content */}
-                            <h3 className="text-center font-bold text-text-main mb-2 group-hover:text-primary transition-colors">
+                            <h3 className="text-center font-bold text-text-main mb-2 group-hover:text-primary transition-colors text-sm sm:text-base">
                                 {item.nome}
                             </h3>
-                            <p className="text-center text-xs text-text-muted leading-relaxed">
+                            <p className="text-center text-[10px] sm:text-xs text-text-muted leading-relaxed">
                                 {item.descricao || item.nome}
                             </p>
 

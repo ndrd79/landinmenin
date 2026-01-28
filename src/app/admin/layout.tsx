@@ -11,6 +11,7 @@ const menuItems = [
     { href: '/admin', label: 'Dashboard', icon: 'dashboard' },
     { href: '/admin/calendario', label: 'Calendário', icon: 'calendar_month' },
     { href: '/admin/pacotes', label: 'Pacotes', icon: 'payments' },
+    { href: '/admin/estrutura', label: 'Estrutura', icon: 'construction' },
     { href: '/admin/galeria', label: 'Galeria', icon: 'photo_library' },
     { href: '/admin/avisos', label: 'Avisos', icon: 'campaign' },
     { href: '/admin/configuracoes', label: 'Configurações', icon: 'settings' },

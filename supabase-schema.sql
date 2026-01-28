@@ -102,29 +102,30 @@ CREATE TABLE IF NOT EXISTS itens_estrutura (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   nome TEXT NOT NULL,
   icone TEXT NOT NULL,
+  descricao TEXT DEFAULT '',
   ativo BOOLEAN DEFAULT TRUE,
   ordem INT DEFAULT 0
 );
 
 -- Inserir itens padrão
-INSERT INTO itens_estrutura (nome, icone, ordem) VALUES
-('Quiosque 154m²', 'deck', 0),
-('Piscina Grande', 'pool', 1),
-('40 Cadeiras', 'event_seat', 2),
-('10 Mesas', 'table_restaurant', 3),
-('2 Mesas Baralho', 'casino', 4),
-('Mesa Mármore', 'countertops', 5),
-('Internet Wi-Fi', 'wifi', 6),
-('TV', 'tv', 7),
-('Som', 'speaker', 8),
-('Luz de Festa', 'celebration', 9),
-('Churrasqueira', 'outdoor_grill', 10),
-('Gás Cozinha', 'local_fire_department', 11),
-('2 Banheiros', 'wc', 12),
-('Cama Elástica', 'sports_gymnastics', 13),
-('Freezer 400L', 'kitchen', 14),
-('2 Geladeiras', 'kitchen', 15),
-('2 Quiosques', 'yard', 16);
+INSERT INTO itens_estrutura (nome, icone, descricao, ordem) VALUES
+('Quiosque 154m²', 'deck', 'Área ampla para eventos', 0),
+('Piscina Grande', 'pool', 'Piscina de alvenaria', 1),
+('40 Cadeiras', 'event_seat', 'Cadeiras brancas resistentes', 2),
+('10 Mesas', 'table_restaurant', 'Mesas de apoio redondas', 3),
+('2 Mesas Baralho', 'casino', 'Ideal para jogos', 4),
+('Mesa Mármore', 'countertops', 'Bancada fixa interna', 5),
+('Internet Wi-Fi', 'wifi', 'Sinal em toda a área', 6),
+('TV', 'tv', 'TV 4k com canais digitais', 7),
+('Som', 'speaker', 'Sistema de som ambiente', 8),
+('Luz de Festa', 'celebration', 'Globo led e canhão luz', 9),
+('Churrasqueira', 'outdoor_grill', 'Grelhas e espetos inclusos', 10),
+('Gás Cozinha', 'local_fire_department', 'Forno e fogão industrial', 11),
+('2 Banheiros', 'wc', 'Masculino e Feminino', 12),
+('Cama Elástica', 'sports_gymnastics', 'Divertimento para crianças', 13),
+('Freezer 400L', 'kitchen', 'Vertical cervejeiro', 14),
+('2 Geladeiras', 'kitchen', 'Duplex com freezer', 15),
+('2 Quiosques', 'yard', 'Áreas de sombra externa', 16);
 
 -- =============================================
 -- ROW LEVEL SECURITY (RLS)
