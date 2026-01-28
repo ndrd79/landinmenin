@@ -70,36 +70,35 @@ export default function Depoimentos() {
                     <p className="text-text-muted font-medium">Avaliação 5.0 no Google Maps</p>
                 </div>
 
-                {/* Desktop Grid / Mobile Carousel */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {/* Compact Grid - 5 in a row */}
+                <div className="flex overflow-x-auto pb-8 md:grid md:grid-cols-2 lg:grid-cols-5 gap-4 lg:gap-3 no-scrollbar">
                     {avaliacoes.map((item, index) => (
                         <div
                             key={index}
-                            className={`bg-white p-8 rounded-[2rem] border border-primary/10 shadow-xl shadow-primary/5 flex flex-col gap-6 transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10 ${index > 2 ? 'hidden lg:flex' : ''
-                                }`}
+                            className="flex-shrink-0 w-[280px] md:w-auto bg-white p-5 rounded-[1.5rem] border border-primary/10 shadow-lg shadow-primary/5 flex flex-col gap-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
                         >
-                            <div className="flex items-center gap-4">
-                                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center text-primary font-bold text-xl">
+                            <div className="flex items-center gap-3">
+                                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center text-primary font-bold text-lg">
                                     {item.nome.charAt(0)}
                                 </div>
                                 <div>
-                                    <h4 className="font-bold text-text-main">{item.nome}</h4>
+                                    <h4 className="font-bold text-text-main text-sm truncate w-[160px] md:w-auto">{item.nome}</h4>
                                     <div className="flex text-yellow-500 scale-75 origin-left">
                                         {[...Array(5)].map((_, i) => (
-                                            <span key={i} className="material-symbols-outlined text-[18px] fill-current">star</span>
+                                            <span key={i} className="material-symbols-outlined text-[16px] fill-current">star</span>
                                         ))}
                                     </div>
                                 </div>
                             </div>
 
-                            <p className="text-text-muted leading-relaxed italic h-full">
+                            <p className="text-text-muted leading-relaxed text-xs italic line-clamp-6">
                                 "{item.comentario}"
                             </p>
 
-                            <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
-                                <span className="text-[10px] uppercase tracking-wider text-text-muted font-bold">{item.tempo}</span>
+                            <div className="flex items-center justify-between pt-3 border-t border-gray-100 mt-auto">
+                                <span className="text-[9px] uppercase tracking-wider text-text-muted font-bold">{item.tempo}</span>
                                 <div className="flex items-center gap-1 opacity-40">
-                                    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" className="h-4 object-contain" />
+                                    <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" className="h-3 object-contain" />
                                 </div>
                             </div>
                         </div>
