@@ -63,14 +63,11 @@ export default function Galeria({ fotos }: GaleriaProps) {
                                 className="w-full h-auto object-cover transition-transform duration-700 group-hover:scale-110"
                             />
 
-                            {/* Refined Overlay */}
-                            <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center justify-center p-4 text-center backdrop-blur-[2px]">
-                                <div className="w-12 h-12 rounded-full bg-white/20 flex items-center justify-center mb-2 scale-50 group-hover:scale-100 transition-transform duration-300">
-                                    <span className="material-symbols-outlined text-white text-[24px]">zoom_in</span>
+                            {/* Refined Overlay - Minimalist */}
+                            <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center p-4 backdrop-blur-[2px]">
+                                <div className="w-14 h-14 rounded-full bg-white/20 flex items-center justify-center scale-50 group-hover:scale-100 transition-transform duration-300 border border-white/30">
+                                    <span className="material-symbols-outlined text-white text-[28px]">zoom_in</span>
                                 </div>
-                                <span className="text-white text-sm font-semibold translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                    {foto.alt || 'Ver Detalhes'}
-                                </span>
                             </div>
                         </div>
                     ))}
